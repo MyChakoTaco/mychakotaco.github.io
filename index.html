@@ -1,0 +1,160 @@
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        
+    }
+    td {
+        width: 90px;
+        height: 90px;
+        text-align: center;
+        font-size: 12px;
+        font-family: Helvetica;
+        padding: 10px;
+        overflow-wrap:break-word;
+    }
+</style>
+
+<div>Teamfight Tactics Items</div>
+<table>
+    <tr>
+        <td></td>
+        <td>BF Sword</td>
+        <td>Needlessly Large Rod</td>
+        <td>Sparring Glove</td>
+        <td>Recurve Bow</td>
+        <td>Giant's Belt</td>
+        <td>Chain Mail</td>
+        <td>Null Magic Mantle</td>
+        <td>Tear of Goddess</td>
+        <td>Golden Spatula</td>
+    </tr>
+    <tr>
+        <td>BF Sword</td>
+        <td>Lord's Edge</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Needlessly Large Rod</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Sparring Gloves</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Recurve Bow</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Giant's Belt</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Chain Mail</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Null Magic Mantle</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Tear of Goddess</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Golden Spatula</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+
+<script>
+    var TFTItemNames = {0:"B.F. Sword",
+                     1:"Needlessly Large Rod",
+                     2:"Sparring Gloves",
+                     3:"Recurve Bow",
+                     4:"Giant's Belt",
+                     5:"Chain Mail",
+                     6:"Null Magic Mantle",
+                     7:"Tear of Goddess",
+                     8:"Golden Spatula"}
+
+    function TFTItem(itemName, imgLink, description, stats, ingredients) {
+        this.itemName = itemName;
+        this.imgLink = imgLink;
+        this.description = description;
+        this.stats = stats;
+        this.ingredients = ingredients;
+    }
+
+    var TFTBaseItems = [];
+    // itemName, imgLink, description, stats, ingredients
+    TFTBaseItems.push(new TFTItem(TFTItemNames[0], "https://ddragon.leagueoflegends.com/cdn/9.17.1/img/item/1038.png", "", ["+20 Attack"],));
+    TFTBaseItems.push(new TFTItem(TFTItemNames[1], "", "", ["+20% Ability Power"],));
+    TFTBaseItems.push(new TFTItem(TFTItemNames[2], "", "", ["+10% Crit Chance", "+10% Dodge"],));
+    TFTBaseItems.push(new TFTItem(TFTItemNames[3], "", "", ["+20% Attack Speed"],));
+    TFTBaseItems.push(new TFTItem(TFTItemNames[4], "", "", ["+200 Health"],));
+    TFTBaseItems.push(new TFTItem(TFTItemNames[5], "", "", ["+20 Armor"],));
+    TFTBaseItems.push(new TFTItem(TFTItemNames[6], "", "", ["+20 Magic Resist"],));
+    TFTBaseItems.push(new TFTItem(TFTItemNames[7], "", "", ["+20 Starting Mana"],));
+    TFTBaseItems.push(new TFTItem(TFTItemNames[8], "", "", ["???"],));
+
+    var TFTCombinedItems = [];
+    // itemName, imgLink, description, stats, ingredients
+    TFTCombinedItems.push(new TFTItem("Lord's Edge", "", "A champion holding Lord's Edge can't hold other items except temporary ones gained by this item. Lord's Edge cannot be given to a champion that already holds an item. On takedown, gain a BF Sword for the remainder of the round.", [], [TFTItemNames[0], TFTItemNames[0]]));
+    
+</script>
