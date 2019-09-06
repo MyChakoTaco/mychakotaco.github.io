@@ -1,0 +1,13 @@
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+ td {
+    width: 90px;
+    height: 90px;
+    text-align: center;
+    font-size: 12px;
+    font-family: Helvetica;
+    padding: 10px;
+    overflow-wrap:break-word;
+ }
