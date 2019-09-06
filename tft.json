@@ -78,7 +78,7 @@
                 "baseitemid1": 0,
                 "baseitemid2": 1,
                 "description": "Basic attacks and Special Abilities heal for 25% of the damage dealt.",
-                "image": "Hextech Gunblade.jpg",
+                "image": "Hextech_Gunblade.jpg",
                 "canheal": true
             },
             "Infinity Edge": {
@@ -95,17 +95,10 @@
                 "description": "Attacks can't miss and deal True Damage equal to 5% of the target's maximum health",
                 "image": "Last_Whisper.jpg"
             },
-            "Sword of the Divine": {
-                "name": "Sword of the Divine",
-                "baseitemid1": 0,
-                "baseitemid2": 4,
-                "description": "Every second, has a 7% chance to gain 100% critical strike chance for the rest of combat.",
-                "image": "Sword_of_the_Divine.jpg"
-            },
             "Zeke's Herald": {
                 "name": "Zeke's Herald",
                 "baseitemid1": 0,
-                "baseitemid2": 5,
+                "baseitemid2": 4,
                 "description": "At the start of combat, the wearer and all allies within 2 hexes in the same row to the left and right gain 15% bonus attack speed for the rest of combat.",
                 "image": "Zeke's_Herald.jpg",
                 "isaura": true
@@ -113,7 +106,7 @@
             "Guardian Angel": {
                 "name": "Guardian Angel",
                 "baseitemid1": 0,
-                "baseitemid2": 6,
+                "baseitemid2": 5,
                 "description": "Upon death, cleanses negative effects and revives after 2 seconds with 500 health. This effect can trigger once per combat.",
                 "image": "Guardian_Angel.jpg",
                 "canheal": true
@@ -121,10 +114,17 @@
             "The Bloodthirster": {
                 "name": "The Bloodthirster",
                 "baseitemid1": 0,
-                "baseitemid2": 7,
+                "baseitemid2": 6,
                 "description": "Basic attacks heal for 40% of the damage dealt.",
                 "image": "The_Bloodthirster.jpg",
                 "canheal": true
+            },            
+            "Spear of Shojin": {
+                "name": "Spear of Shojin",
+                "baseitemid1": 0,
+                "baseitemid2": 7,
+                "description": "After casting Special Ability for the first time, basic attacks restore an additional 15% of maximum mana.",
+                "image": "Spear_of_Shojin.jpg"
             },
             "Youmuu's Ghostblade": {
                 "name": "Youmuu's Ghostblade",
