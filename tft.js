@@ -36,9 +36,9 @@ function createTFTTable() {
             let name = value["name"];
             let image = value["image"];
 
-            let baseItemInnerHTML = "<span>" +
-                "<span>" + name + "</span>" +
-                //  "<img src='"+image+"' alt='"+name+"'>"+
+            let baseItemInnerHTML = "<span class='baseitem'>" +
+                "<span class='name'>" + name + "</span>" +
+                //  "<img class='image' src='"+image+"' alt='"+name+"'>"+
                 baseStatsHTML(value) +
                 "</span>";
 
@@ -56,10 +56,10 @@ function createTFTTable() {
             let image = value["image"];
 
 
-            let combinedItemInnerHTML = "<span>" +
-                "<span>" + name + "</span>" +
-                "<span>" + description + "</span>" +
-                //      "<img src='"+image+"' alt='"+name+"'>"+
+            let combinedItemInnerHTML = "<span class='combineditem'>" +
+                "<span class='name'>" + name + "</span>" +
+                "<span class='description'>" + description + "</span>" +
+                //      "<img class='image' src='"+image+"' alt='"+name+"'>"+
                 combinedStatsHTML(value) +
                 "</span>";
 
@@ -75,7 +75,7 @@ function baseStatsHTML(baseItem) {
     if (baseItem["baseitemid"] == 8)
         return "";
 
-    let statsHTML = "<span class='baseStats'>";
+    let statsHTML = "<span class='stats'>";
     for (let stat in statNames) {
         if (baseItem.hasOwnProperty(stat)) {
             statsHTML += "<span>+" + baseItem[stat] + " " + statNames[stat] + "</span>";
@@ -93,7 +93,7 @@ function combinedStatsHTML(combinedItem) {
         return "";
 
     // start stat styling
-    let statsHTML = "<span class='combinedStats'>";
+    let statsHTML = "<span class='stats'>";
     let hasCustomStats = false;
 
     // check for custom stats
