@@ -38,7 +38,7 @@ function createTFTTable() {
 
             let baseItemInnerHTML = "<span class='baseitem'>" +
                 "<span class='name'>" + name + "</span>" +
-                //  "<img class='image' src='"+image+"' alt='"+name+"'>"+
+                "<img class='image' src='images/"+image+"' alt='"+name+"'>"+
                 baseStatsHTML(value) +
                 "</span>";
 
@@ -59,7 +59,7 @@ function createTFTTable() {
             let combinedItemInnerHTML = "<span class='combineditem'>" +
                 "<span class='name'>" + name + "</span>" +
                 "<span class='description'>" + description + "</span>" +
-                //      "<img class='image' src='"+image+"' alt='"+name+"'>"+
+                "<img class='image' src='images/"+image+"' alt='"+name+"'>"+
                 combinedStatsHTML(value) +
                 "</span>";
 
