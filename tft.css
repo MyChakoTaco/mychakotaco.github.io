@@ -1,63 +1,95 @@
-html {
-    font-family: helvetica;
-}
-
 body {
-    background-color: #555555;
+    font-size: 14px;
+    font-family: Helvetica;
+    text-align: center;
+    background-color: #2A2A2A;
 }
 
-.container {
-    width:100%;
+/* Base Table Styling */
+#tftitemstable-container {
+    position: absolute;
+    text-align: center;
 }
 
-/* Generic Table Styling */
 #tftitemstable {
+    display: inline-block;
     border-collapse: collapse;
-    border-spacing: 0px;
-    font-size: 10px;
-    width: 100%;
+    text-align: left;
     table-layout: fixed;
 }
 
 #tftitemstable td {
-    border: 1px #BFBFBF solid;
-    padding: 3px;
-    width: 100%;
-    height: 52px;
-    background-color: #DFDFDF;
+    background-color: #AFAFAF;
+    padding: 1px;
+    margin: 0;
 }
 
-#tftitemstable > tr:first-child > td:first-child {
-    border: none;
-    background-color: inherit;
+#tftitemstable tr td:first-child {
+    padding-left: 5px;
 }
 
-#tftitemstable > tr > td:first-child {
-    width: 52px;
+#tftitemstable tr td:last-child {
+    padding-right: 5px;
 }
 
-/* Base Item */
-#tftitemstable .baseitem .name {
+#tftitemstable tr:first-child td {
+    padding-top: 5px;
+}
+
+#tftitemstable tr:last-child td {
+    padding-bottom: 5px;
+}
+
+#tftitemstable tr td:nth-child(2) {
+    padding-left: 5px;
+}
+
+#tftitemstable tr:nth-child(2) td {
+    padding-top: 5px;
+}
+
+#tftitemstable tr:first-child td:nth-child(2),
+#tftitemstable tr:nth-child(2) td:first-child {
+    border-top-left-radius: 5px;
+}
+
+#tftitemstable tr:first-child td:last-child {
+    border-top-right-radius: 5px;
+}
+
+#tftitemstable tr:last-child td:first-child {
+    border-bottom-left-radius: 5px;
+}
+
+#tftitemstable tr:last-child td:last-child {
+    border-bottom-right-radius: 5px;
+}
+
+#tftitemstable tr:first-child td:first-child {
+    background-color: transparent;
+}
+
+#tftitemstable .baseitem,
+#tftitemstable .combineditem {
+    display: block;
+}
+
+#tftitemstable .name,
+#tftitemstable .description,
+#tftitemstable .stats {
     display: none;
 }
 
-/* Combined Item */
-#tftitemstable > tr > td:first-child .baseitem .stats {
-    display: none;
+#tftitemstable .image {
+    display: block;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
 }
 
-#tftitemstable .combineditem .name {
-    display: none;
-}
-
-#tftitemstable .combineditem .description {
-    display: inline-block;
-    height: 52px;
-    white-space: wrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-#tftitemstable .combineditem .stats {
-    display: none;
+/* Show Text State */
+#tftitemstable.show-text .baseitem .stats,
+#tftitemstable.show-text .combineditem .description {
+    display: block;
 }

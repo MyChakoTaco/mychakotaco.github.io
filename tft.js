@@ -1,3 +1,34 @@
+$(document).ready(function () {
+    initializeTFTTable();
+    intializeResizing();
+});
+
+// #region Resize
+function intializeResizing() {
+    setTimeout(tftResize, 50);
+    window.addEventListener("resize", tftResize);
+}
+
+function tftResize() {
+    repositionTable();
+}
+
+function repositionTable() {
+    let containerEle = $("#tftitemstable-container");
+    let containerHeight = containerEle.height();
+    let containerWidth = containerEle.width();
+    let windowHeight = window.innerHeight;
+    let windowWidth = window.innerWidth;
+
+    containerEle.css({
+        top: (windowHeight - containerHeight) / 2,
+        left: (windowWidth - containerWidth) / 2
+    });
+}
+// #endregion
+
+// #region Table Construction
+var baseItems, combinedItems;
 var statNames = {
     "attackdamage": "Attack Damage",
     "magicdamage": "Ability Damage",
@@ -9,13 +40,8 @@ var statNames = {
     "magicresist": "Magic Resist",
     "startingmana": "Starting Mana"
 };
-var baseItems, combinedItems;
 
-$(document).ready(function () {
-    createTFTTable();
-});
-
-function createTFTTable() {
+function initializeTFTTable() {
     $.getJSON("tft.json", function (data) {
         baseItems = data["tftitems"]["baseitems"];
         combinedItems = data["tftitems"]["combineditems"];
@@ -38,7 +64,7 @@ function createTFTTable() {
 
             let baseItemInnerHTML = "<span class='baseitem'>" +
                 "<span class='name'>" + name + "</span>" +
-                "<img class='image' src='images/"+image+"' alt='"+name+"'>"+
+                "<img class='image' src='images/" + image + "' alt='" + name + "'>" +
                 baseStatsHTML(value) +
                 "</span>";
 
@@ -59,7 +85,7 @@ function createTFTTable() {
             let combinedItemInnerHTML = "<span class='combineditem'>" +
                 "<span class='name'>" + name + "</span>" +
                 "<span class='description'>" + description + "</span>" +
-                "<img class='image' src='images/"+image+"' alt='"+name+"'>"+
+                "<img class='image' src='images/" + image + "' alt='" + name + "'>" +
                 combinedStatsHTML(value) +
                 "</span>";
 
@@ -140,7 +166,7 @@ function combinedStatsHTML(combinedItem) {
                 statsArray[stat] += hasSpatula ? baseItem2[stat] * 2 : baseItem2[stat];
             }
             if (statsArray[stat] > 0) {
-                statsHTML += "<span>+"+statsArray[stat]+" "+statNames[stat]+"</span>"
+                statsHTML += "<span>+" + statsArray[stat] + " " + statNames[stat] + "</span>"
             }
         }
     }
@@ -149,3 +175,4 @@ function combinedStatsHTML(combinedItem) {
     return statsHTML;
 }
 
+// #endregion
