@@ -1,16 +1,61 @@
 $(document).ready(function () {
     initializeTFTTable();
-    intializeResizing();
+    setTimeout(function() {
+        initializeResizing();
+        initializeOnHover();
+    }, 50)
 });
 
+// #region onHover
+var hoverTimer;
+var hoverDuration = 1000;
+
+function initializeOnHover() {
+    // $(".combineditem").mouseenter(function() {
+        
+    //     var that = this;
+    //     $(that).addClass("ishover", 1000, "easeInOutQuint");
+
+    //     hoverTimer = setTimeout(function(){
+    //         animateDim();
+    //         console.log("animateDim()");
+    //     }, hoverDuration);
+    // }).mouseleave(function() {
+    //     var that = this;
+    //     $(that).removeClass("ishover", 1000, "easeInOutQuint");
+    //     clearTimeout(hoverTimer);
+    // });
+}
+
+function animateDim() {
+
+}
+
+// #endregion
+
 // #region Resize
-function intializeResizing() {
-    setTimeout(tftResize, 50);
+function initializeResizing() {
+    tftResize();
     window.addEventListener("resize", tftResize);
 }
 
 function tftResize() {
+    resizeTable();
     repositionTable();
+}
+
+function resizeTable() {
+    $("#tftitemstable").removeClass("sm");
+
+    let containerEle = $("#tftitemstable-container");
+    let containerHeight = containerEle.height();
+    let containerWidth = containerEle.width();
+    let windowHeight = window.innerHeight;
+    let windowWidth = window.innerWidth;
+
+    if (containerHeight > windowHeight || containerWidth > windowWidth) {
+        $("#tftitemstable").addClass("sm");
+    }
 }
 
 function repositionTable() {

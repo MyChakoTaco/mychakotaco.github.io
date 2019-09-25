@@ -7,7 +7,7 @@ body {
 
 /* Base Table Styling */
 #tftitemstable-container {
-    position: absolute;
+    position: relative;
     text-align: center;
 }
 
@@ -16,6 +16,7 @@ body {
     border-collapse: collapse;
     text-align: left;
     table-layout: fixed;
+    z-index: 1;
 }
 
 #tftitemstable td {
@@ -72,6 +73,7 @@ body {
 #tftitemstable .baseitem,
 #tftitemstable .combineditem {
     display: block;
+    z-index: 1;
 }
 
 #tftitemstable .name,
@@ -89,7 +91,45 @@ body {
 }
 
 /* Show Text State */
-#tftitemstable.show-text .baseitem .stats,
+#tftitemstable.show-text tr:first-child .baseitem .stats,
 #tftitemstable.show-text .combineditem .description {
     display: block;
+}
+
+#tftitemstable.show-text tr td:first-child {
+}
+
+#tftitemstable.show-text tr td {
+    width: 1%;
+}
+
+/* Filter Bar */
+/* #tftitems-filter-container {
+    position: absolute;
+    text-align: left;
+    width: 100%;
+    background-color: #AAAA00;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.tftitems-filter-item {
+    margin: 5px;
+    height: 20px;
+}
+
+.tftitems-filter-item input {
+    width: 50px;
+    height: 20px;
+    background-color: #EFEFEF;
+    display:none;
+} */
+
+/* Glow Effect */
+#tftitemstable .combineditem:hover {
+    position: relative;
+    box-shadow: 0px 0px 8px 6px #ff9;
+    border-radius: 8px;
+    transition: box-shadow .5s ease-in-out;
 }
