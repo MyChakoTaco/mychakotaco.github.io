@@ -1,8 +1,9 @@
 $(document).ready(function () {
     initializeTFTTable();
     setTimeout(function() {
-        initializeResizing();
+        // initializeResizing();
         initializeOnHover();
+        initializeToggles();
     }, 50)
 });
 
@@ -29,6 +30,23 @@ function initializeOnHover() {
 
 function animateDim() {
 
+}
+// #endregion
+
+// #region toggles
+function initializeToggles() {
+    $("#cbShowText").change(function() {
+        if ($("#cbShowText").is(":checked")) {
+            $("#tftitemstable").addClass("show-text");
+        }
+        else {
+            $("#tftitemstable").removeClass("show-text");
+        }
+    })
+}
+function showTextToggle() {
+    
+    
 }
 
 // #endregion
@@ -109,7 +127,7 @@ function initializeTFTTable() {
 
             let baseItemInnerHTML = "<span class='baseitem'>" +
                 "<span class='name'>" + name + "</span>" +
-                "<img class='image' src='images/" + image + "' alt='" + name + "'>" +
+                "<span class='image'><img src='images/" + image + "' alt='" + name + "'></span>" +
                 baseStatsHTML(value) +
                 "</span>";
 
@@ -123,14 +141,14 @@ function initializeTFTTable() {
             let baseItemID1 = value["baseitemid1"];
             let baseItemID2 = value["baseitemid2"];
             let name = value["name"];
-            let description = value["description"];
+            let shortdescription = value["shortdescription"];
             let image = value["image"];
 
 
             let combinedItemInnerHTML = "<span class='combineditem'>" +
                 "<span class='name'>" + name + "</span>" +
-                "<span class='description'>" + description + "</span>" +
-                "<img class='image' src='images/" + image + "' alt='" + name + "'>" +
+                "<span class='image'><img src='images/" + image + "' alt='" + name + "'></span>" +
+                "<span class='shortdescription'>" + shortdescription + "</span>" +
                 combinedStatsHTML(value) +
                 "</span>";
 
@@ -146,13 +164,13 @@ function baseStatsHTML(baseItem) {
     if (baseItem["baseitemid"] == 8)
         return "";
 
-    let statsHTML = "<span class='stats'>";
+    let statsHTML = "<ul class='stats'>";
     for (let stat in statNames) {
         if (baseItem.hasOwnProperty(stat)) {
-            statsHTML += "<span>+" + baseItem[stat] + " " + statNames[stat] + "</span>";
+            statsHTML += "<li>+" + baseItem[stat] + " " + statNames[stat] + "</li>";
         }
     }
-    statsHTML += "</span>";
+    statsHTML += "</ul>";
 
     return statsHTML;
 }
@@ -164,13 +182,13 @@ function combinedStatsHTML(combinedItem) {
         return "";
 
     // start stat styling
-    let statsHTML = "<span class='stats'>";
+    let statsHTML = "<ul class='stats'>";
     let hasCustomStats = false;
 
     // check for custom stats
     for (let stat in statNames) {
         if (combinedItem.hasOwnProperty(stat)) {
-            statsHTML += "<span>+" + combinedItem[stat] + " " + statNames[stat] + "</span>";
+            statsHTML += "<li>+" + combinedItem[stat] + " " + statNames[stat] + "</li>";
             hasCustomStats = true;
         }
     }
@@ -211,11 +229,11 @@ function combinedStatsHTML(combinedItem) {
                 statsArray[stat] += hasSpatula ? baseItem2[stat] * 2 : baseItem2[stat];
             }
             if (statsArray[stat] > 0) {
-                statsHTML += "<span>+" + statsArray[stat] + " " + statNames[stat] + "</span>"
+                statsHTML += "<li>+" + statsArray[stat] + " " + statNames[stat] + "</li>"
             }
         }
     }
-    statsHTML += "</span>";
+    statsHTML += "</ul>";
 
     return statsHTML;
 }

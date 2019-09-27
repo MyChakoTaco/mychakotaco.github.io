@@ -1,13 +1,14 @@
 body {
-    font-size: 14px;
+    font-size: 12px;
     font-family: Helvetica;
     text-align: center;
     background-color: #2A2A2A;
+    margin: 0;
+    padding: 0;
 }
 
 /* Base Table Styling */
 #tftitemstable-container {
-    position: relative;
     text-align: center;
 }
 
@@ -17,6 +18,8 @@ body {
     text-align: left;
     table-layout: fixed;
     z-index: 1;
+    margin: 20px 40px;
+    box-shadow: 5px 5px 2px 2px;
 }
 
 #tftitemstable td {
@@ -77,26 +80,75 @@ body {
 }
 
 #tftitemstable .name,
-#tftitemstable .description,
+#tftitemstable .shortdescription,
 #tftitemstable .stats {
     display: none;
 }
 
+#tftitemstable .stats {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
 #tftitemstable .image {
     display: block;
-    position: relative;
-    width: 60px;
-    height: 60px;
+}
+
+#tftitemstable img {
     border-radius: 5px;
+    display: block;
 }
 
 /* Show Text State */
+#tftitemstable.show-text {
+
+}
+
+#tftitemstable.show-text .combineditem {
+    display: table;
+    width: 100%;
+    min-height: 80px;
+    background-color: #FFF;
+    border-radius: 5px;
+}
+#tftitemstable.show-text .baseitem {
+    display: table;
+    width: 100%;
+    background-color: #999;
+    border-radius: 5px;
+}
+
+#tftitemstable.show-text tr:nth-child(2) td {
+    padding-top: 2px;
+}
+
+#tftitemstable.show-text .combineditem .image,
+#tftitemstable.show-text tr:first-child .baseitem .image {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 5px;
+    width: 1%;
+}
+
+#tftitemstable.show-text .image img {
+    width: 50px;
+    height: 50px;
+}
+
 #tftitemstable.show-text tr:first-child .baseitem .stats,
-#tftitemstable.show-text .combineditem .description {
-    display: block;
+#tftitemstable.show-text .combineditem .shortdescription {
+    display: table-cell;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 5px;
+    padding-left: 0px;
+    min-width: 80px;
 }
 
 #tftitemstable.show-text tr td:first-child {
+    width: .01%;
 }
 
 #tftitemstable.show-text tr td {
@@ -104,27 +156,29 @@ body {
 }
 
 /* Filter Bar */
-/* #tftitems-filter-container {
-    position: absolute;
+#tftitems-filter-container {
     text-align: left;
     width: 100%;
-    background-color: #AAAA00;
-    top: 0;
-    left: 0;
-    z-index: 10;
+    background-color: #99f;
+    box-shadow: 0px 1px 5px 3px;
+    padding: 5px 20px;
 }
 
 .tftitems-filter-item {
-    margin: 5px;
-    height: 20px;
+    display: inline-block;
+    background-color: white;
+    border-radius: 3px;
+    padding: 7px 10px;
+    font-size: 16px;
 }
 
 .tftitems-filter-item input {
-    width: 50px;
-    height: 20px;
-    background-color: #EFEFEF;
-    display:none;
-} */
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    margin-right: 5px;
+    top: 2px;
+}
 
 /* Glow Effect */
 #tftitemstable .combineditem:hover {

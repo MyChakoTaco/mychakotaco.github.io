@@ -4,21 +4,18 @@
             "B.F. Sword": {
                 "name": "B.F. Sword",
                 "baseitemid": 0,
-                "description": "Best friend sword",
                 "image": "BF_Sword.png",
-                "attackdamage": 20
+                "attackdamage": 15
             },
             "Needlessly Large Rod": {
                 "name": "Needlessly Large Rod",
                 "baseitemid": 1,
-                "description": "Best friend sword",
                 "image": "Needlessly_Large_Rod.png",
                 "magicdamage": 20
             },
             "Sparring Gloves": {
                 "name": "Sparring Gloves",
                 "baseitemid": 2,
-                "description": "Best friend sword",
                 "image": "Sparring_Gloves.png",
                 "critchance": 10,
                 "dodgechance": 10
@@ -26,42 +23,36 @@
             "Recurve Bow": {
                 "name": "Recurve Bow",
                 "baseitemid": 3,
-                "description": "Best friend sword",
                 "image": "Recurve_Bow.png",
                 "attackspeed": 20
             },
             "Giant's Belt": {
                 "name": "Giant's Belt",
                 "baseitemid": 4,
-                "description": "Best friend sword",
                 "image": "Giants_Belt.png",
                 "health": 20
             },
             "Chain Vest": {
-                "name": "Chain VEst",
+                "name": "Chain Vest",
                 "baseitemid": 5,
-                "description": "Best friend sword",
                 "image": "Chain_Vest.png",
                 "armor": 20
             },
             "Negatron Cloak": {
                 "name": "Negatron Cloak",
                 "baseitemid": 6,
-                "description": "Best friend sword",
                 "image": "Negatron_Cloak.png",
                 "magicresist": 20
             },
             "Tear of the Goddess": {
                 "name": "Tear of the Goddess",
                 "baseitemid": 7,
-                "description": "Best friend sword",
                 "image": "Tear_of_the_Goddess.png",
                 "startingmana": 20
             },
             "Golden Spatula": {
                 "name": "Golden Spatula",
                 "baseitemid": 8,
-                "description": "Best friend sword",
                 "image": "Golden_Spatula.png"
             }
         },
@@ -70,14 +61,16 @@
                 "name": "Lord's Edge",
                 "baseitemid1": 0,
                 "baseitemid2": 0,
-                "description": "A champion holding Lord's Edge can't hold other items except temporary ones gained by this item. Lord's Edge cannot be given to a champion that already holds an item. On takedown, gain a BF Sword for the remainder of the round.",
+                "shortdescription": "Killing an enemy gives wearer +15 Attack Damage.",
+                "description": "Whenever the wearer kills or participates in killing an enemy, gain +15 Attack Damage for the remainder of combat. This effect can stack any number of times.",
                 "image": "Lords_Edge.png"
             },
             "Hextech Gunblade": {
                 "name": "Hextech Gunblade",
                 "baseitemid1": 0,
                 "baseitemid2": 1,
-                "description": "Basic attacks and Special Abilities heal for 25% of the damage dealt.",
+                "shortdescription": "Heal 25% of all damage dealt.",
+                "description": "Basic Attacks and spells heal the wearer for 25% of the damage dealt.",
                 "image": "Hextech_Gunblade.png",
                 "canheal": true
             },
@@ -85,21 +78,24 @@
                 "name": "Infinity Edge",
                 "baseitemid1": 0,
                 "baseitemid2": 2,
-                "description": "Crits deal 200% more damage.",
+                "shortdescription": "+150% Crit Damage.",
+                "description": "The wearer gains +150% Critical Strike Damage.",
                 "image": "Infinity_Edge.png"
             },
-            "Last Whisper": {
-                "name": "Last Whisper",
+            "Giant Slayer": {
+                "name": "Giant Slayer",
                 "baseitemid1": 0,
                 "baseitemid2": 3,
-                "description": "Attacks can't miss and deal True Damage equal to 5% of the target's maximum health",
-                "image": "Last_Whisper.png"
+                "shortdescription": "Basic attacks deal 5% of target's max health.",
+                "description": "The wearer's basic attacks deal an additional 5% of the target's Maximum Health as true damage.",
+                "image": "Giant_Slayer.png"
             },
             "Zeke's Herald": {
                 "name": "Zeke's Herald",
                 "baseitemid1": 0,
                 "baseitemid2": 4,
-                "description": "At the start of combat, the wearer and all allies within 2 hexes in the same row to the left and right gain 15% bonus attack speed for the rest of combat.",
+                "shortdescription": "Allies within same row and 2 hexes gain 15% attack speed.",
+                "description": "When combat begins, the wearer and all allies within 2 hexes in the same row gain +15% Attack Speed for the rest of combat.",
                 "image": "Zekes_Herald.png",
                 "isaura": true
             },
@@ -107,7 +103,8 @@
                 "name": "Guardian Angel",
                 "baseitemid1": 0,
                 "baseitemid2": 5,
-                "description": "Upon death, cleanses negative effects and revives after 2 seconds with 500 health. This effect can trigger once per combat.",
+                "shortdescription": "Upon death, revive with 500 health.",
+                "description": "When the wearer dies, they cleanse negative effects and revive with up to 500 Health after a 2 second delay. This effect can trigger once per combat.",
                 "image": "Guardian_Angel.png",
                 "canheal": true
             },
@@ -115,7 +112,8 @@
                 "name": "The Bloodthirster",
                 "baseitemid1": 0,
                 "baseitemid2": 6,
-                "description": "Basic attacks heal for 40% of the damage dealt.",
+                "shortdescription": "Basic attacks heal for 40%",
+                "description": "Basic Attacks heal the wearer for 40% of the damage dealt.",
                 "image": "The_Bloodthirster.png",
                 "canheal": true
             },            
@@ -123,27 +121,31 @@
                 "name": "Spear of Shojin",
                 "baseitemid1": 0,
                 "baseitemid2": 7,
-                "description": "After casting Special Ability for the first time, basic attacks restore an additional 15% of maximum mana.",
+                "shortdescription": "Basic attacks restore 15% Maximum Mana after first spell-cast",
+                "description": "After casting their spell, the wearer's Basic Attacks restore 15% of their Maximum Mana.",
                 "image": "Spear_of_Shojin.png"
             },
             "Youmuu's Ghostblade": {
                 "name": "Youmuu's Ghostblade",
                 "baseitemid1": 0,
                 "baseitemid2": 8,
-                "description": "Wearer is also an Assassin TFT icon Assassin (including the Innate stealthed jump).",
+                "shortdescription": "Wearer is an Assassin",
+                "description": "Wearer is also an Assassin (including the Innate stealthed jump).",
                 "image": "Youmuus_Ghostblade.png"
             },
             "Rabadon's Deathcap": {
                 "name": "Rabadon's Deathcap",
                 "baseitemid1": 1,
                 "baseitemid2": 1,
-                "description": "Increases Ability power icon ability power by 50%.",
+                "shortdescription": "+50% Spell Power.",
+                "description": "Wearer gains +50% Spell Power Amplification. (All sources of Spell Power are 50% more effective).",
                 "image": "Rabadons_Deathcap.png"
             },
             "Arcane Gauntlet": {
                 "name": "Arcane Gauntlet",
                 "baseitemid1": 1,
                 "baseitemid2": 2,
+                "shortdescription": "Spells can critical strike.",
                 "description": "Your abilities can critically strike.",
                 "image": "Arcane_Gauntlet.png"
             },
@@ -151,6 +153,7 @@
                 "name": "Guinsoo's Rageblade",
                 "baseitemid1": 1,
                 "baseitemid2": 3,
+                "shortdescription": "Basic attacks grant 5% attack speed.",
                 "description": "Basic attacks grant 5% bonus attack speed for the rest of combat. Stacks with no upper limit.",
                 "image": "Guinsoos_Rageblade.png"
             },
@@ -158,7 +161,8 @@
                 "name": "Morellonomicon",
                 "baseitemid1": 1,
                 "baseitemid2": 4,
-                "description": "Dealing damage with a Special Ability applies a burn on the enemies hit for 10 seconds, dealing 2% of target's maximum health true damage each second and applying Grievous Wounds for the duration, reducing healing on the target.",
+                "shortdescription": "Spells burn for 20% of target's max health and prevents 80% healing.",
+                "description": "When the wearer deals damage with their spell, they burn the target, dealing 20% of the target's Maximum Health as true damage over 10 seconds and reducing healing by 80% for the duration of the burn. A champion can only have one burn effect at a time, preferring the strongest.",
                 "image": "Morellonomicon.png",
                 "canapplygreviouswounds": true
             },
@@ -166,7 +170,8 @@
                 "name": "Locket of the Iron Solari",
                 "baseitemid1": 1,
                 "baseitemid2": 5,
-                "description": "At the start of combat, the wearer and all allies within 2 hexes in the same row to the left and right gain a 250 health shield for 6 seconds.",
+                "shortdescription": "Allies within same row and 2 hexes gains 300 shield.",
+                "description": "When combat begins, the wearer and all allies within 2 hexes in the same row gain a shield that blocks 300 damage for 7 seconds.",
                 "image": "Locket_of_the_Iron_Solari.png",
                 "isaura": true
             },
@@ -174,6 +179,7 @@
                 "name": "Ionic Spark",
                 "baseitemid1": 1,
                 "baseitemid2": 6,
+                "shortdescription": "When an enemy casts their ability, they take 125 true damage.",
                 "description": "Whenever an enemy casts their Special Ability, they take 125 true damage.",
                 "image": "Ionic_Spark.png"
             },
@@ -181,6 +187,7 @@
                 "name": "Luden's Echo",
                 "baseitemid1": 1,
                 "baseitemid2": 7,
+                "shortdescription": "Damaging spells splash up to 3 enemies for 180 magic damage.",
                 "description": "When the wearer deals damage with their Special Ability, the first target hit and up to 3 nearby enemies are dealt an additional 180 magic damage.",
                 "image": "Ludens_Echo.png",
                 "cansplash": true
@@ -189,29 +196,33 @@
                 "name": "Yuumi",
                 "baseitemid1": 1,
                 "baseitemid2": 8,
-                "description": "Wearer is also a Sorcerer TFT icon Sorcerer (including the Innate bonus of mana generation).",
+                "shortdescription": "Wearer is a Sorcerer.",
+                "description": "Wearer is also a Sorcerer (including the Innate bonus of mana generation).",
                 "image": "Yuumi.png"
             },
             "Thief's Gloves": {
                 "name": "Thief's Gloves",
                 "baseitemid1": 2,
                 "baseitemid2": 2,
-                "description": "A champion holding Thief's Gloves can't hold other items except temporary ones gained by this item. Thief's Gloves cannot be given to a champion that already holds an item. On round start, gain two temporary items. Their quality is based on your player level.",
+                "shortdescription": "Wearer gains temporary items based on player level.",
+                "description": "At the beginning of each planning phase, the wearer equips 2 temporary items. Temporary items increase in power based on your player level",
                 "image": "Thiefs_Gloves.png"
             },
             "Repeating Crossbow": {
                 "name": "Repeating Crossbow",
                 "baseitemid1": 2,
                 "baseitemid2": 3,
-                "description": "When the wearer dies, Repeating Crossbow passes to a new ally and they gain an additional 20% Crit chance and 20% Attack Speed. This stacks with each pass of the item.",
+                "shortdescription": "When wearer dies, ally gains item with +20% attack speed and crit chance.",
+                "description": "When the wearer dies, Repeating Crossbow is re-equipped to a new ally. Each time Repeating Crossbow is re-equipped, it grants additional +20% Attack Speed and +20% Critical Strike Chance for the remainder of combat. This effect can stack any number of times.",
                 "image": "Repeating_Crossbow.png"
             },
-            "Backhand": {
-                "name": "Backhand",
+            "Trap Claw": {
+                "name": "Trap Claw",
                 "baseitemid1": 2,
                 "baseitemid2": 4,
-                "description": "The wearer starts combat with a spell shield. Stun the enemy that breaks the shield for a long time.",
-                "image": "Backhand.png",
+                "shortdescription": "Gain one-time shield that blocks first spell and stuns spellcaster.",
+                "description": "At the beginning of combat, the wearer gains a shield that blocks the first enemy spell that hits them. The enemy that breaks the shield is stunned for 5 seconds.",
+                "image": "Trap_Claw.png",
                 "canstun": true,
                 "cannegatecc": true
             },
@@ -219,7 +230,8 @@
                 "name": "Iceborne Gauntlet",
                 "baseitemid1": 2,
                 "baseitemid2": 5,
-                "description": "On dodge, create an expandable 30% attack speed slow zone.",
+                "shortdescription": "Dodging create a zone that slows enemies' attack speed by 35%.",
+                "description": "When the wearer dodges, they create a zone of ice. Enemies inside the zone have their Attack Speed reduced by 35%.",
                 "image": "Iceborne_Gauntlet.png",
                 "canslow": true
             },
@@ -227,7 +239,8 @@
                 "name": "Quicksilver",
                 "baseitemid1": 2,
                 "baseitemid2": 6,
-                "description": "Prevents the next crowd control effect applied to the wearer. Refreshes every 5 seconds.",
+                "shortdescription": "Wearer gets shield that prevents cc. Refreshes after 5 sec.",
+                "description": "The wearer gains a shield that prevents the next crowd control effect from applying. This shield refreshes after 5 seconds.",
                 "image": "Quicksilver.png",
                 "cannegatecc": true
             },
@@ -235,7 +248,8 @@
                 "name": "Hand of Justice",
                 "baseitemid1": 2,
                 "baseitemid2": 7,
-                "description": "At the beginning of the planning phase, the wearer randomly gains either 40% increased damage or 40 life on hit until end of round.",
+                "shortdescription": "Wearer gets +40% all damage or heal 40 Health on-hit.",
+                "description": "At the beginning of each planning phase, the wearer gains one of the following: Basic Attacks and spells deal +40% Damage or Basic Attacks heal 40 Health on-hit.",
                 "image": "Hand_of_Justice.png",
                 "canheal": true
             },
@@ -243,21 +257,24 @@
                 "name": "Mittens",
                 "baseitemid1": 2,
                 "baseitemid2": 8,
-                "description": "Extra 10% Crit chance and 10% Dodge chance. Wearer is also a Yordle",
+                "shortdescription": "Wearer is a Yorlde.",
+                "description": "Wearer is also a yordle.",
                 "image": "Mittens.png"
             },
             "Rapid Firecannon": {
                 "name": "Rapid Firecannon",
                 "baseitemid1": 3,
                 "baseitemid2": 3,
-                "description": "Doubles attack range.",
+                "shortdescription": "Wearer gains +100% Attack Range.",
+                "description": "Wearer gains +100% Attack Range.",
                 "image": "Rapid_Firecannon.png"
             },
             "Titanic Hydra": {
                 "name": "Titanic Hydra",
                 "baseitemid1": 3,
                 "baseitemid2": 4,
-                "description": "Basic attacks deal 10% of your maximum health physical damage in a cone behind the target.",
+                "shortdescription": "Basic attacks deal 3% of wearer's max health in cone behind target.",
+                "description": "Basic Attacks deal an additional 3% of the wearer's Maximum Health as magic damage to the target and adjacent enemies behind them.",
                 "image": "Titanic_Hydra.png",
                 "cansplash": true
             },
@@ -265,14 +282,16 @@
                 "name": "Phantom Dancer",
                 "baseitemid1": 3,
                 "baseitemid2": 5,
-                "description": "Dodges critical strikes from basic attacks and Special Abilities.",
+                "shortdescription": "Wearer dodges all Critical Strikes.",
+                "description": "Wearer dodges all Critical Strikes.",
                 "image": "Phantom_Dancer.png"
             },
             "Cursed Blade": {
                 "name": "Cursed Blade",
                 "baseitemid1": 3,
                 "baseitemid2": 6,
-                "description": "Basic attacks have a 20% chance to shrink the target, removing 1 Star. A unit can be reduced to a 0-Star unit.",
+                "shortdescription": "20% chance on-hit to decrease target's level.",
+                "description": "Basic Attacks have a 20% chance on-hit to decrease the target' star level by 1 for the rest of combat.",
                 "image": "Cursed_Blade.png",
                 "canapplystatuseffect": true
             },
@@ -280,7 +299,8 @@
                 "name": "Statikk Shiv",
                 "baseitemid1": 3,
                 "baseitemid2": 7,
-                "description": "Every third basic attack from the wearer deals 100 magic damage to the target and 2 additional targets.",
+                "shortdescription": "Every third basic attack deals 100 damage to 3 enemies.",
+                "description": "Every third Basic Attack from the wearer deals 100 magical damage to 3 enemies.",
                 "image": "Statikk_Shiv.png",
                 "cansplash": true
             },
@@ -288,6 +308,7 @@
                 "name": "Blade of the Ruined King",
                 "baseitemid1": 3,
                 "baseitemid2": 8,
+                "shortdescription": "Wearer is a Blademaster.",
                 "description": "Wearer is also a Blademaster.",
                 "image": "Blade_of_the_Ruined_King.png"
             },
@@ -295,7 +316,8 @@
                 "name": "Warmog's Armor",
                 "baseitemid1": 4,
                 "baseitemid2": 4,
-                "description": "Regenerates 6% of missing health per second, up to a maximum of 400 health per tick.",
+                "shortdescription": "Wearer heals 6% of their missing Health per sec.",
+                "description": "Wearer regenerates 6% of their missing Health per second.",
                 "image": "Warmogs_Armor.png",
                 "canheal": true
             },
@@ -303,7 +325,8 @@
                 "name": "Red Buff",
                 "baseitemid1": 4,
                 "baseitemid2": 5,
-                "description": "Basic attacks apply a burn on the target 10 seconds, dealing 2% of target's maximum health true damage each second and applying Grievous Wounds for the duration, reducing healing on the target.",
+                "shortdescription": "Basic attacks burn for 20% of target's max health and prevents 80% healing.",
+                "description": "Wearer's Basic Attacks burn the target on-hit, dealing 20% of the target's Maximum Health as true damage over 10 seconds and reducing healing by 80% for the duration of the burn. A champion can only have one burn effect at a time, preferring the strongest.",
                 "image": "Red_Buff.png",
                 "canapplygreviouswounds": true
             },
@@ -311,7 +334,8 @@
                 "name": "Zephyr",
                 "baseitemid1": 4,
                 "baseitemid2": 6,
-                "description": "At the start of combat, banishes for 5 seconds the unit that mirrors the wielder's placement on the other side of the board.",
+                "shortdescription": "Exiles opposite enemy for 6 sec.",
+                "description": "When combat begins, the wearer summons a whirlwind on the opposite side of the arena that removes the closest enemy from combat for 6 seconds.",
                 "image": "Zephyr.png",
                 "canstun": true
             },
@@ -319,7 +343,8 @@
                 "name": "Redemption",
                 "baseitemid1": 4,
                 "baseitemid2": 7,
-                "description": "When falling below 25% of maximum health, creates a zone that, after a 2.5 second delay, heals allies within for 1200 health. This effect can trigger once per combat.",
+                "shortdescription": "When below 25% Health, heal nearby allies for 1200 Health.",
+                "description": "When the wearer falls below 25% Health, nearby allies are healed for 1200 Health after a 2.5 second delay. This effect can trigger once per combat.",
                 "image": "Redemption.png",
                 "canheal": true
             },
@@ -327,6 +352,7 @@
                 "name": "Frozen Mallet",
                 "baseitemid1": 4,
                 "baseitemid2": 8,
+                "shortdescription": "Wearer is a Glacial.",
                 "description": "Wearer is also a Glacial.",
                 "image": "Frozen_Mallet.png"
             },
@@ -334,14 +360,16 @@
                 "name": "Thornmail",
                 "baseitemid1": 5,
                 "baseitemid2": 5,
-                "description": "When hit by a basic attack, reflects 100% of physical damage mitigated as magic damage to the attacker.",
+                "shortdescription": "Reflects 100% of mitigated damage as magic damage.",
+                "description": "When the wearer is hit by a Basic Attack, they reflect 100% of the mitigated damage as magic damage.",
                 "image": "Thornmail.png"
             },
             "Sword Breaker": {
                 "name": "Sword Breaker",
                 "baseitemid1": 5,
                 "baseitemid2": 6,
-                "description": "Basic attacks have a 25% chance to disarm the target for 4 seconds, preventing that enemy from basic attacking.",
+                "shortdescription": "Basic attacks have 33% chance to prevent target from Basic Attacking.",
+                "description": "Wearer's Basic Attacks have a 33% chance to disarm the target for 3 seconds, preventing that enemy from Basic Attacking.",
                 "image": "Sword_Breaker.png",
                 "canapplystatuseffect": true
             },
@@ -349,7 +377,8 @@
                 "name": "Frozen Heart",
                 "baseitemid1": 5,
                 "baseitemid2": 7,
-                "description": "Reduces the attack speed of adjacent enemies by 25%.",
+                "shortdescription": "Reduce the Attack Speed of adjacent enemies by 35%.",
+                "description": "Reduce the Attack Speed of adjacent enemies by 35%.",
                 "image": "Frozen_Heart.png",
                 "canslow": true,
                 "isaura": true
@@ -358,6 +387,7 @@
                 "name": "Knight's Vow",
                 "baseitemid1": 5,
                 "baseitemid2": 8,
+                "shortdescription": "Wearer is a Knight.",
                 "description": "Wearer is also a Knight.",
                 "image": "Knights_Vow.png"
             },
@@ -365,14 +395,16 @@
                 "name": "Dragon's Claw",
                 "baseitemid1": 6,
                 "baseitemid2": 6,
-                "description": "Grants 83% resistance to magic damage.",
+                "shortdescription": "Wearer gains 75% resistance to magic damage.",
+                "description": "Wearer gains 75% resistance to magic damage.",
                 "image": "Dragons_Claw.png"
             },
             "Hush": {
                 "name": "Hush",
                 "baseitemid1": 6,
                 "baseitemid2": 7,
-                "description": "Basic attacks have a 33% chance to mana-lock the target for 4 seconds, preventing the target from gaining mana.",
+                "shortdescription": "Basic attacks have 33% chance to prevent mana generation.",
+                "description": "Basic Attacks have a 33% chance to silence the target on-hit, prevent the enemy from gaining mana for 4 seconds.",
                 "image": "Hush.png",
                 "cannegateskill": true
             },
@@ -380,20 +412,23 @@
                 "name": "Runaan's Hurricane",
                 "baseitemid1": 6,
                 "baseitemid2": 8,
-                "description": "Basic attacks fire an additional missile at another nearby enemy, dealing 75% AD and applying on-hit effects.",
+                "shortdescription": "Basic attacks target another enemy dealing 75% of Attack Damage.",
+                "description": "Basic Attacks fire an additional missile at another nearby enemy, dealing 75% of the wearer's Attack Damage and applying on-hit effects.",
                 "image": "Runaans_Hurricane.png"
             },
             "Seraph's Embrace": {
                 "name": "Seraph's Embrace",
                 "baseitemid1": 7,
                 "baseitemid2": 7,
-                "description": "After casting Special Ability, grants 20 mana.",
+                "shortdescription": "After spell-cast, restore 20 Mana.",
+                "description": "After casting their spell, the wearer restores 20 Mana.",
                 "image": "Seraphs_Embrace.png"
             },
             "Darkin": {
                 "name": "Darkin",
                 "baseitemid1": 7,
                 "baseitemid2": 8,
+                "shortdescription": "Wearer is a Demon.",
                 "description": "Wearer is also a Demon.",
                 "image": "Darkin.png"
             },
@@ -401,7 +436,8 @@
                 "name": "Force of Nature",
                 "baseitemid1": 8,
                 "baseitemid2": 8,
-                "description": "Increases the unit cap by 1.",
+                "shortdescription": "Team size +1.",
+                "description": "Wearer's team gains +1 maximum team size.",
                 "image": "Force_of_Nature.png"
             }
         }
