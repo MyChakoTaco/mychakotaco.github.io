@@ -39,6 +39,8 @@ function initializeOnClick() {
     $("td:first-child.base-item").click(function() {
         let rowNum = $(this).parent().attr("row");
         hideRow(rowNum);
+        resizeTable();
+
     });
 
     $("tr:first-child td.base-item").click(function() {
@@ -85,21 +87,35 @@ function tftResize() {
 
 function resizeTable() {
     let containerEle = $("#tftitemstable-container");
-    let containerHeight = containerEle.height();
-    let containerWidth = containerEle.width();
-    let windowHeight = window.innerHeight;
+    let filterContainerEle = $("#tftitems-filter-container");
     let windowWidth = window.innerWidth;
+
+    containerEle.css({
+        width: windowWidth
+    })
+
+    let filterContainerHeight = filterContainerEle.height();
+    let windowHeight = window.innerHeight;
+    let firstRowHeight = $("#tftitemstable tr:first-child td:first-child").height();
+    let tableMarginHeight = parseInt($("#tftitemstable").css("margin"), 10);
+    let numOfVisibleRows = $("#tftitemstable td:first-child").not(".is-hide-row").length;
+
+    $("#tftitemstable td.combined-item").css({
+        height: Math.min((windowHeight - filterContainerHeight - 2*tableMarginHeight) / numOfVisibleRows, 120)
+    })
 }
 
 function repositionTable() {
     let containerEle = $("#tftitemstable-container");
     let containerHeight = containerEle.height();
     let containerWidth = containerEle.width();
+    let filterContainerEle = $("#tftitems-filter-container");
+    let filterContainerHeight = filterContainerEle.height();
     let windowHeight = window.innerHeight;
     let windowWidth = window.innerWidth;
 
     containerEle.css({
-        top: (windowHeight - containerHeight) / 2,
+        top: Math.max(filterContainerHeight + (windowHeight - containerHeight - filterContainerHeight) / 2, filterContainerHeight),
         left: (windowWidth - containerWidth) / 2
     });
     
