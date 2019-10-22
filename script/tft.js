@@ -1,7 +1,7 @@
 $(document).ready(function () {
     initializeTFTTable();
     setTimeout(function() {
-        // initializeResizing();
+        initializeResizing();
         initializeOnHover();
         initializeToggles();
         initializeOnClick();
@@ -59,6 +59,7 @@ function hideRow(rowNum) {
 
 // #region toggles
 function initializeToggles() {
+    // icon only
     $("#cbIconOnly").change(function() {
         if ($("#cbIconOnly").is(":checked")) {
             $("#tftitemstable").addClass("icons-only");
@@ -66,6 +67,7 @@ function initializeToggles() {
         else {
             $("#tftitemstable").removeClass("icons-only");
         }
+        tftResize();
     })
 }
 // #endregion
@@ -82,17 +84,11 @@ function tftResize() {
 }
 
 function resizeTable() {
-    $("#tftitemstable").removeClass("sm");
-
     let containerEle = $("#tftitemstable-container");
     let containerHeight = containerEle.height();
     let containerWidth = containerEle.width();
     let windowHeight = window.innerHeight;
     let windowWidth = window.innerWidth;
-
-    if (containerHeight > windowHeight || containerWidth > windowWidth) {
-        $("#tftitemstable").addClass("sm");
-    }
 }
 
 function repositionTable() {
@@ -106,6 +102,7 @@ function repositionTable() {
         top: (windowHeight - containerHeight) / 2,
         left: (windowWidth - containerWidth) / 2
     });
+    
 }
 // #endregion
 
