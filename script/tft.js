@@ -4,6 +4,7 @@ $(document).ready(function () {
         // initializeResizing();
         initializeOnHover();
         initializeToggles();
+        initializeOnClick();
     }, 50)
 });
 
@@ -33,22 +34,40 @@ function animateDim() {
 }
 // #endregion
 
+// #region onclick
+function initializeOnClick() {
+    $("td:first-child.base-item").click(function() {
+        let rowNum = $(this).parent().attr("row");
+        hideRow(rowNum);
+    });
+
+    $("tr:first-child td.base-item").click(function() {
+        let colNum = $(this).attr("col");
+        hideColumn(colNum);
+    })
+}
+
+function hideColumn(colNum) {
+    $("td[col='"+colNum+"']").addClass("is-hide-col");
+}
+
+function hideRow(rowNum) {
+    $("tr[row='"+rowNum+"'] td").addClass("is-hide-row");
+}
+
+// #endregion
+
 // #region toggles
 function initializeToggles() {
-    $("#cbShowText").change(function() {
-        if ($("#cbShowText").is(":checked")) {
-            $("#tftitemstable").addClass("show-text");
+    $("#cbIconOnly").change(function() {
+        if ($("#cbIconOnly").is(":checked")) {
+            $("#tftitemstable").addClass("icons-only");
         }
         else {
-            $("#tftitemstable").removeClass("show-text");
+            $("#tftitemstable").removeClass("icons-only");
         }
     })
 }
-function showTextToggle() {
-    
-    
-}
-
 // #endregion
 
 // #region Resize
@@ -113,10 +132,10 @@ function initializeTFTTable() {
         // create new empty table
         $("#tftitemstable").empty();
         for (let i = 0; i < numBaseItems + 1; i++) {
-            $("#tftitemstable").append("<tr></tr>");
+            $("#tftitemstable").append("<tr row="+i+"></tr>");
         }
         for (let i = 0; i < numBaseItems + 1; i++) {
-            $("#tftitemstable > tr").append("<td></td>");
+            $("#tftitemstable > tr").append("<td col="+i+"></td>");
         }
 
         // prepare base items
@@ -125,15 +144,22 @@ function initializeTFTTable() {
             let name = value["name"];
             let image = value["image"];
 
-            let baseItemInnerHTML = "<span class='baseitem'>" +
+            let baseItemInnerHTML = "<span class='item'>" +
                 "<span class='name'>" + name + "</span>" +
                 "<span class='image'><img src='images/" + image + "' alt='" + name + "'></span>" +
                 baseStatsHTML(value) +
                 "</span>";
 
             let rows = $("#tftitemstable")[0].rows;
-            rows[baseItemID + 1].cells[0].innerHTML = baseItemInnerHTML;
-            rows[0].cells[baseItemID + 1].innerHTML = baseItemInnerHTML;
+            
+            let cell1 = rows[0].cells[baseItemID + 1];
+            cell1.innerHTML = baseItemInnerHTML;
+            cell1.className = "base-item";
+
+            // let cell2 = rows[numBaseItems - baseItemID].cells[0];
+            let cell2 = rows[baseItemID + 1].cells[0];
+            cell2.innerHTML = baseItemInnerHTML;
+            cell2.className = "base-item";
         });
 
         // prepare combined items
@@ -145,16 +171,30 @@ function initializeTFTTable() {
             let image = value["image"];
 
 
-            let combinedItemInnerHTML = "<span class='combineditem'>" +
+            let combinedItemInnerHTML = "<span class='item'>" +
                 "<span class='name'>" + name + "</span>" +
                 "<span class='image'><img src='images/" + image + "' alt='" + name + "'></span>" +
-                "<span class='shortdescription'>" + shortdescription + "</span>" +
+                "<span class='short-description'>" + shortdescription + "</span>" +
                 combinedStatsHTML(value) +
                 "</span>";
 
             let rows = $("#tftitemstable")[0].rows;
-            rows[baseItemID1 + 1].cells[baseItemID2 + 1].innerHTML = combinedItemInnerHTML;
-            rows[baseItemID2 + 1].cells[baseItemID1 + 1].innerHTML = combinedItemInnerHTML;
+
+            // let cell1 = rows[numBaseItems - baseItemID1].cells[baseItemID2 + 1];
+            // cell1.innerHTML = combinedItemInnerHTML;
+            // cell1.className = "combined-item duplicate-item";
+
+            // let cell2 = rows[numBaseItems - baseItemID2].cells[baseItemID1 + 1]
+            // cell2.innerHTML = combinedItemInnerHTML;
+            // cell2.className = "combined-item";
+
+            let cell1 = rows[baseItemID1 + 1].cells[baseItemID2 + 1];
+            cell1.innerHTML = combinedItemInnerHTML;
+            cell1.className = "combined-item";
+
+            let cell2 = rows[baseItemID2 + 1].cells[baseItemID1 + 1]
+            cell2.innerHTML = combinedItemInnerHTML;
+            cell2.className = "combined-item";
         });
     });
 
@@ -162,7 +202,7 @@ function initializeTFTTable() {
 
 function baseStatsHTML(baseItem) {
     if (baseItem["baseitemid"] == 8)
-        return "";
+        return "<span class='golden-spatula'>Golden Spatula</span>";
 
     let statsHTML = "<ul class='stats'>";
     for (let stat in statNames) {
