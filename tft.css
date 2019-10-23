@@ -1,15 +1,27 @@
+/* 
+background: #152021
+accent yellow 1: #F1DC96
+accent yellow 2: #A69255
+accent yellow 3: #53472B
+accent yellow 4: #3B3126
+accent blue 1: #C0F1D8
+accent blue 2: #527674
+accent blue 3: #31525A
+*/
+
 body {
     font-size: 12px;
     font-family: Helvetica;
     text-align: center;
-    background-color: rgb(59, 59, 59);
+    /* background: rgb(15,33,33); */
+    background: linear-gradient(135deg, rgba(43,66,68,1) 0%, rgba(15,33,33,1) 50%);
     margin: 0;
     padding: 0;
 }
 
 /* Base Table Styling */
 #tftitemstable-container {
-    position: absolute;
+    position: relative;
 }
 
 #tftitemstable {
@@ -18,14 +30,15 @@ body {
     text-align: left;
     table-layout: fixed;
     z-index: 1;
-    margin: 20px;
+    margin: 0px 20px;
 }
 
 #tftitemstable td {
     padding: 0;
     margin: 0;
-    width:1%;
-    position:relative;
+    width: 1%;
+    position: relative;
+    vertical-align: top;
 }
 
 #tftitemstable td:first-child {
@@ -39,6 +52,7 @@ body {
 /* All Item Styling */
 #tftitemstable .item {
     display: table;
+    width: 100%;
 }
 
 #tftitemstable .name {
@@ -47,9 +61,11 @@ body {
 
 #tftitemstable .image {
     display:table-cell;
-    vertical-align: middle;
-    padding:0;
-    width:0;
+    /* padding:1px; */
+    border-left: 1px solid #F5DD95;
+    border-top: 1px solid #F5DD95;
+    border-right: 1px solid #AE914B;
+    border-bottom: 1px solid #AE914B;
 }
 
 #tftitemstable img {
@@ -60,26 +76,21 @@ body {
 #tftitemstable .base-item .golden-spatula,
 #tftitemstable .combined-item .short-description
 {
-    /* display: table-cell;
+    display: table-cell;
+    width: 100%;
     list-style:none;
     padding:0px 5px;
     margin:0;
-    vertical-align: middle; */
+    vertical-align: middle;
     list-style:none;
     
-    display: block;
-    position: absolute;
-    width: 64%;
-    left: 50px;
-    bottom: 3px;
-    border-left: 1px solid #fff;
-    border-top: 1px solid #fff;
-    border-right: 1px solid #d7d7d7;
-    border-bottom: 1px solid #d7d7d7;
-    background-color: #efefef;
+    border-left: 1px solid #F5DD95;
+    border-top: 1px solid #F5DD95;
+    border-right: 1px solid #AE914B;
+    border-bottom: 1px solid #AE914B;
+    background-color: #EFEFEF;
     color: black;
-    font-weight: bold;
-    padding: 2px 3px;
+    padding: 1px 3px;
     margin: 0px;
 }
 
@@ -101,10 +112,13 @@ body {
     display: none;
 }
 
+#tftitemstable tr:first-child td.base-item {
+    padding-bottom: 5px;
+}
+
 /* Combined Item Styling */
 #tftitemstable td.combined-item {
-    /* background-color:#AFAFAF; */
-    height: 90px;
+
 }
 
 #tftitemstable .combined-item .stats {
@@ -127,17 +141,35 @@ body {
     padding: 5px;
 } */
 
+/* 
+background: #152021
+accent yellow 1: #F1DC96
+accent yellow 2: #A69255
+accent yellow 3: #53472B
+accent yellow 4: #3B3126
+accent blue 1: #C0F1D8
+accent blue 2: #527674
+accent blue 3: #31525A
+*/
+
 /* Filter Bar */
 #tftitems-filter-container {
     text-align: left;
-    background-color: #99f;
-    padding: 5px 20px;
+    /* background-color: #3A7875; */
+    /* opacity: .8; */
+    padding: 10px 30px;
 }
 
 .tftitems-filter-item {
     display: inline-block;
-    background-color: white;
-    border-radius: 3px;
+    background-color: #17535B;
+    opacity: 1;
+    color: #C0F1D8;
+    border-left: 2px solid #F5DD95;
+    border-top: 2px solid #F5DD95;
+    border-right: 2px solid #AE914B;
+    border-bottom: 2px solid #AE914B;
+    border-radius: 5px;
     padding: 7px 10px;
     font-size: 16px;
 }
@@ -161,11 +193,11 @@ body {
 
 #tftitemstable.icons-only {
     position: relative;
-    width: 640px;
+    table-layout: auto;
 }
 
 #tftitemstable.icons-only td{
-    width: 1%;
+    width: auto;
     height: auto;
 }
 
@@ -177,18 +209,37 @@ body {
 
 @media all and (max-width: 1600px) {
     #tftitemstable {
-        margin: 10px;
+        margin: 0px 10px;
+    }
+
+    #tftitemstable .item {
+        width: initial;
     }
 
     #tftitemstable .stats,
     #tftitemstable .base-item .golden-spatula,
     #tftitemstable .combined-item .short-description {
-        left: 30px;
+        list-style:none;
+    
+        display: block;
+        position: absolute;
+        width: 64%;
+        left: 50px;
+        bottom: 10px;
+        /* border-left: 1px solid #AE914B;
+        border-top: 1px solid #AE914B;
+        border-right: 1px solid #56491D;
+        border-bottom: 1px solid #56491D; */
+        background-color: #EFEFEF;
+        color: #152021;
+        font-weight: bold;
+        padding: 1px 3px;
+        margin: 0px;
+
+        left: 5px;
         font-size: 11px;
-        width: 70%;
-        background: rgba(255,255,255,.8);
-        
-        
+        width: 85%;
+        opacity: .8;
     }
 }
 
@@ -203,6 +254,14 @@ body {
 
     #tftitemstable td.combined-item {
         /* height: auto; */
+    }
+
+    #tftitemstable img {
+        width: 54px;
+    }
+
+    .tftitems-filter-item {
+        font-size: 12px;
     }
 }
 
