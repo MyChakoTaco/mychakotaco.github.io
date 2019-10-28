@@ -1,11 +1,11 @@
 $(document).ready(function () {
     initializeTFTTable();
-    setTimeout(function() {
+    setTimeout(function () {
         initializeResizing();
         initializeOnHover();
         initializeToggles();
         initializeOnClick();
-    }, 150)
+    }, 500)
 });
 
 // #region onHover
@@ -13,36 +13,58 @@ var hoverTimer;
 var hoverDuration = 1000;
 
 function initializeOnHover() {
-    // $(".combineditem").mouseenter(function() {
-        
-    //     var that = this;
-    //     $(that).addClass("ishover", 1000, "easeInOutQuint");
-
-    //     hoverTimer = setTimeout(function(){
-    //         animateDim();
-    //         console.log("animateDim()");
-    //     }, hoverDuration);
-    // }).mouseleave(function() {
-    //     var that = this;
-    //     $(that).removeClass("ishover", 1000, "easeInOutQuint");
-    //     clearTimeout(hoverTimer);
-    // });
+    $(".combined-item").mouseenter(function () {
+        $(this).addClass("is-hover-select");
+        hoverTimer = setTimeout(function () {
+            animateHover();
+        }, hoverDuration);
+    }).mouseleave(function () {
+        unanimateHover();
+        $(this).removeClass("is-hover-select");
+        clearTimeout(hoverTimer);
+    });
 }
 
-function animateDim() {
+function animateHover() {
+    let selectedItem = $(".combined-item.is-hover-select");
+    let selectedItemRow = parseInt(selectedItem.parent("tr").attr("row"));
+    let selectedItemCol = parseInt(selectedItem.attr("col"));
 
+    let unselectedItems = $(".combined-item").not(".is-hover-select");
+    let unselectedRowBaseItem = $("tr:first-child .base-item[col!="+selectedItemCol+"]");
+    let unselectedColBaseItem = $("tr:not(:first-child)[row!="+selectedItemRow+"] td:first-child.base-item");
+
+    $.each(unselectedItems.add(unselectedRowBaseItem).add(unselectedColBaseItem), function (key, value) {
+        let currRow = parseInt($(value).parent("tr").attr("row"));
+        let currCol = parseInt($(value).attr("col"));
+        let rowDiff = Math.abs(currRow - selectedItemRow);
+        let colDiff = Math.abs(currCol - selectedItemCol);
+
+        $(value).animate({
+            opacity: 0.1
+        }, (rowDiff + colDiff) * 100)
+    });
+}
+
+function unanimateHover() {
+    $(".combined-item").add($(".base-item")).stop();
+
+    let unselectedItem = $(".combined-item").add($(".base-item"));
+    unselectedItem.animate({
+        opacity: 1
+    });
 }
 // #endregion
 
 // #region onclick
 function initializeOnClick() {
-    $("td:first-child.base-item").click(function() {
+    $("td:first-child.base-item").click(function () {
         let rowNum = $(this).parent().attr("row");
         hideRow(rowNum);
         tftResize();
     });
 
-    $("tr:first-child td.base-item").click(function() {
+    $("tr:first-child td.base-item").click(function () {
         let colNum = $(this).attr("col");
         hideColumn(colNum);
         tftResize();
@@ -50,11 +72,11 @@ function initializeOnClick() {
 }
 
 function hideColumn(colNum) {
-    $("td[col='"+colNum+"']").addClass("is-hide-col");
+    $("td[col='" + colNum + "']").addClass("is-hide-col");
 }
 
 function hideRow(rowNum) {
-    $("tr[row='"+rowNum+"'] td").addClass("is-hide-row");
+    $("tr[row='" + rowNum + "'] td").addClass("is-hide-row");
 }
 
 // #endregion
@@ -62,7 +84,7 @@ function hideRow(rowNum) {
 // #region toggles
 function initializeToggles() {
     // icon only
-    $("#cbIconOnly").change(function() {
+    $("#cbIconOnly").change(function () {
         if ($("#cbIconOnly").is(":checked")) {
             $("#tftitemstable").addClass("icons-only");
         }
@@ -88,14 +110,12 @@ function tftResize() {
 function resizeTable() {
     let filterContainerEle = $("#tftitems-filter-container");
     let numOfVisibleRows = $("#tftitemstable td:first-child").not(".is-hide-row").length;
-    let firstRowHeight = $("#tftitemstable tr:first-child td").height();
-    let isIconsOnly = $("#tftitemstable").hasClass("icons-only")
 
     let newHeightValue = window.innerHeight;
 
-    if (window.innerWidth < 1600 && !isIconsOnly) {
+    if (isFullScreen()) {
         newHeightValue = Math.min(
-            (window.innerHeight - 15 - filterContainerEle.innerHeight()) / numOfVisibleRows,
+            (window.innerHeight - filterContainerEle.innerHeight() - 5) / numOfVisibleRows,
             120);
     }
     else {
@@ -111,11 +131,26 @@ function repositionTable() {
     let containerEle = $("#tftitemstable-container");
     let filterContainerEle = $("#tftitems-filter-container");
 
-    containerEle.css({
-        top: Math.max((window.innerHeight - filterContainerEle.innerHeight() - containerEle.height() )/2, 0),
-        left: (window.innerWidth - containerEle.width()) / 2
-    });
-    
+    if (isFullScreen()) {
+        containerEle.css({
+            top: 0,
+            left: 0
+        });
+    }
+    else {
+        containerEle.css({
+            top: Math.max((window.innerHeight - filterContainerEle.innerHeight() - containerEle.height()) / 2, 0),
+            left: (window.innerWidth - containerEle.width()) / 2
+        });
+    }
+}
+
+function isFullScreen() {
+    let isIconsOnly = $("#tftitemstable").hasClass("icons-only");
+    let isSmallWindow = window.innerWidth < 1600;
+
+    return !isIconsOnly && isSmallWindow;
+
 }
 // #endregion
 
@@ -138,15 +173,18 @@ function initializeTFTTable() {
         baseItems = data["tftitems"]["baseitems"];
         combinedItems = data["tftitems"]["combineditems"];
         let numBaseItems = Object.keys(baseItems).length;
+        let table = $("#tftitemstable").empty()
 
         // create new empty table
-        $("#tftitemstable").empty();
+        table.empty();
         for (let i = 0; i < numBaseItems + 1; i++) {
-            $("#tftitemstable").append("<tr row="+i+"></tr>");
+            table.append("<tr row=" + i + "></tr>");
         }
         for (let i = 0; i < numBaseItems + 1; i++) {
-            $("#tftitemstable > tr").append("<td col="+i+"></td>");
+            table.children("tr").append("<td col=" + i + "></td>");
         }
+
+        $("#tftitemstable").addClass("icons-only");
 
         // prepare base items
         $.each(baseItems, function (key, value) {
@@ -161,7 +199,7 @@ function initializeTFTTable() {
                 "</span>";
 
             let rows = $("#tftitemstable")[0].rows;
-            
+
             let cell1 = rows[0].cells[baseItemID + 1];
             cell1.innerHTML = baseItemInnerHTML;
             cell1.className = "base-item";

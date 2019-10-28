@@ -13,8 +13,7 @@ body {
     font-size: 12px;
     font-family: Helvetica;
     text-align: center;
-    /* background: rgb(15,33,33); */
-    background: linear-gradient(135deg, rgba(43,66,68,1) 0%, rgba(15,33,33,1) 50%);
+    background: rgb(15,33,33);
     margin: 0;
     padding: 0;
 }
@@ -66,6 +65,13 @@ body {
     border-top: 1px solid #F5DD95;
     border-right: 1px solid #AE914B;
     border-bottom: 1px solid #AE914B;
+}
+
+#tftitemstable .combined-item .image {
+    border-left: 1px solid #AFAFAF;
+    border-top: 1px solid #AFAFAF;
+    border-right: 1px solid #5F5f5f;
+    border-bottom: 1px solid #5f5f5f;
 }
 
 #tftitemstable img {
