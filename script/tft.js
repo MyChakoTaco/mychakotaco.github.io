@@ -27,15 +27,15 @@ function initializeOnHover() {
 
 function animateHover() {
     let selectedItem = $(".combined-item.is-hover-select");
-    let selectedItemRow = parseInt(selectedItem.parent("tr").attr("row"));
+    let selectedItemRow = parseInt(selectedItem.attr("row"));
     let selectedItemCol = parseInt(selectedItem.attr("col"));
 
     let unselectedItems = $(".combined-item").not(".is-hover-select");
-    let unselectedRowBaseItem = $("tr:first-child .base-item[col!="+selectedItemCol+"]");
-    let unselectedColBaseItem = $("tr:not(:first-child)[row!="+selectedItemRow+"] td:first-child.base-item");
+    let unselectedRowBaseItem = $(".base-item.first-row[col!="+selectedItemCol+"]");
+    let unselectedColBaseItem = $(".base-item.first-col[row!="+selectedItemRow+"]");
 
     $.each(unselectedItems.add(unselectedRowBaseItem).add(unselectedColBaseItem), function (key, value) {
-        let currRow = parseInt($(value).parent("tr").attr("row"));
+        let currRow = parseInt($(value).attr("row"));
         let currCol = parseInt($(value).attr("col"));
         let rowDiff = Math.abs(currRow - selectedItemRow);
         let colDiff = Math.abs(currCol - selectedItemCol);
@@ -58,13 +58,13 @@ function unanimateHover() {
 
 // #region onclick
 function initializeOnClick() {
-    $("td:first-child.base-item").click(function () {
-        let rowNum = $(this).parent().attr("row");
+    $(".base-item.first-col").click(function () {
+        let rowNum = $(this).attr("row");
         hideRow(rowNum);
         tftResize();
     });
 
-    $("tr:first-child td.base-item").click(function () {
+    $(".base-item.first-row").click(function () {
         let colNum = $(this).attr("col");
         hideColumn(colNum);
         tftResize();
@@ -72,11 +72,11 @@ function initializeOnClick() {
 }
 
 function hideColumn(colNum) {
-    $("td[col='" + colNum + "']").addClass("is-hide-col");
+    $(".all-item[col='" + colNum + "']").addClass("is-hide-col");
 }
 
 function hideRow(rowNum) {
-    $("tr[row='" + rowNum + "'] td").addClass("is-hide-row");
+    $(".all-item[row='" + rowNum + "']").addClass("is-hide-row");
 }
 
 // #endregion
@@ -86,10 +86,10 @@ function initializeToggles() {
     // icon only
     $("#cbIconOnly").change(function () {
         if ($("#cbIconOnly").is(":checked")) {
-            $("#tftitemstable").addClass("icons-only");
+            $(".tfti-table").addClass("icons-only");
         }
         else {
-            $("#tftitemstable").removeClass("icons-only");
+            $(".tfti-table").removeClass("icons-only");
         }
         tftResize();
     })
@@ -108,8 +108,8 @@ function tftResize() {
 }
 
 function resizeTable() {
-    let filterContainerEle = $("#tftitems-filter-container");
-    let numOfVisibleRows = $("#tftitemstable td:first-child").not(".is-hide-row").length;
+    let filterContainerEle = $(".filter");
+    let numOfVisibleRows = $(".all-item.first-col").not(".is-hide-row").length + 1;
 
     let newHeightValue = window.innerHeight;
 
@@ -122,14 +122,14 @@ function resizeTable() {
         newHeightValue = "initial";
     }
 
-    $("#tftitemstable td.combined-item").css({
+    $(".combined-item").css({
         height: newHeightValue
     })
 }
 
 function repositionTable() {
-    let containerEle = $("#tftitemstable-container");
-    let filterContainerEle = $("#tftitems-filter-container");
+    let containerEle = $(".tfti");
+    let filterContainerEle = $(".filter");
 
     if (isFullScreen()) {
         containerEle.css({
@@ -146,7 +146,7 @@ function repositionTable() {
 }
 
 function isFullScreen() {
-    let isIconsOnly = $("#tftitemstable").hasClass("icons-only");
+    let isIconsOnly = $(".tfti-table").hasClass("icons-only");
     let isSmallWindow = window.innerWidth < 1600;
 
     return !isIconsOnly && isSmallWindow;
@@ -173,18 +173,18 @@ function initializeTFTTable() {
         baseItems = data["tftitems"]["baseitems"];
         combinedItems = data["tftitems"]["combineditems"];
         let numBaseItems = Object.keys(baseItems).length;
-        let table = $("#tftitemstable").empty()
+        let table = $(".tfti-table").empty()
 
         // create new empty table
         table.empty();
         for (let i = 0; i < numBaseItems + 1; i++) {
-            table.append("<tr row=" + i + "></tr>");
+            table.append("<tr></tr>");
         }
         for (let i = 0; i < numBaseItems + 1; i++) {
-            table.children("tr").append("<td col=" + i + "></td>");
+            table.children("tr").append("<td></td>");
         }
 
-        $("#tftitemstable").addClass("icons-only");
+        table.addClass("icons-only");
 
         // prepare base items
         $.each(baseItems, function (key, value) {
@@ -192,22 +192,27 @@ function initializeTFTTable() {
             let name = value["name"];
             let image = value["image"];
 
-            let baseItemInnerHTML = "<span class='item'>" +
-                "<span class='name'>" + name + "</span>" +
-                "<span class='image'><img src='images/" + image + "' alt='" + name + "'></span>" +
-                baseStatsHTML(value) +
-                "</span>";
+            let baseItemInnerHTML = "<span class='tfti-item'>" +
+                "<span class='tfti-item-image'><img class='tfti-item-image-img' src='images/" + image + "' alt='" + name + "'></span>" +
+                "<span class='tfti-item-text'>" +
+                    "<span class='tfti-item-text-name'>" + name + "</span>" +
+                    baseStatsHTML(value) +
+                "</span></span>";
 
-            let rows = $("#tftitemstable")[0].rows;
+            let rows = $(".tfti-table")[0].rows;
 
             let cell1 = rows[0].cells[baseItemID + 1];
             cell1.innerHTML = baseItemInnerHTML;
-            cell1.className = "base-item";
+            cell1.className = "base-item all-item first-row";
+            cell1.setAttribute("row", 0);
+            cell1.setAttribute("col", baseItemID + 1);
 
             // let cell2 = rows[numBaseItems - baseItemID].cells[0];
             let cell2 = rows[baseItemID + 1].cells[0];
             cell2.innerHTML = baseItemInnerHTML;
-            cell2.className = "base-item";
+            cell2.className = "base-item all-item first-col";
+            cell2.setAttribute("row", baseItemID + 1);
+            cell2.setAttribute("col", 0);
         });
 
         // prepare combined items
@@ -215,18 +220,21 @@ function initializeTFTTable() {
             let baseItemID1 = value["baseitemid1"];
             let baseItemID2 = value["baseitemid2"];
             let name = value["name"];
+            let description = value["description"];
             let shortdescription = value["shortdescription"];
             let image = value["image"];
 
 
-            let combinedItemInnerHTML = "<span class='item'>" +
-                "<span class='name'>" + name + "</span>" +
-                "<span class='image'><img src='images/" + image + "' alt='" + name + "'></span>" +
-                "<span class='short-description'>" + shortdescription + "</span>" +
-                combinedStatsHTML(value) +
-                "</span>";
+            let combinedItemInnerHTML = "<span class='tfti-item'>" +
+                "<span class='tfti-item-image'><img class='tfti-item-image-img' src='images/" + image + "' alt='" + name + "'></span>" +
+                "<span class='tfti-item-text'>" +
+                    "<span class='tfti-item-text-name'>" + name + "</span>" +
+                    "<span class='tfti-item-text-short-description'>" + shortdescription + "</span>" +
+                    "<span class='tfti-item-text-description'>" + description + "</span>" +
+                    combinedStatsHTML(value) +
+                "</span></span>";
 
-            let rows = $("#tftitemstable")[0].rows;
+            let rows = $(".tfti-table")[0].rows;
 
             // let cell1 = rows[numBaseItems - baseItemID1].cells[baseItemID2 + 1];
             // cell1.innerHTML = combinedItemInnerHTML;
@@ -238,11 +246,15 @@ function initializeTFTTable() {
 
             let cell1 = rows[baseItemID1 + 1].cells[baseItemID2 + 1];
             cell1.innerHTML = combinedItemInnerHTML;
-            cell1.className = "combined-item";
+            cell1.className = "combined-item all-item";
+            cell1.setAttribute("row", baseItemID1 + 1);
+            cell1.setAttribute("col", baseItemID2 + 1);
 
             let cell2 = rows[baseItemID2 + 1].cells[baseItemID1 + 1]
             cell2.innerHTML = combinedItemInnerHTML;
-            cell2.className = "combined-item";
+            cell2.className = "combined-item all-item";
+            cell2.setAttribute("row", baseItemID2 + 1);
+            cell2.setAttribute("col", baseItemID1 + 1);
         });
     });
 
@@ -250,9 +262,9 @@ function initializeTFTTable() {
 
 function baseStatsHTML(baseItem) {
     if (baseItem["baseitemid"] == 8)
-        return "<span class='golden-spatula'>Golden Spatula</span>";
+        return "<span class='tfti-item-text-stats'>Golden Spatula</span>";
 
-    let statsHTML = "<ul class='stats'>";
+    let statsHTML = "<ul class='tfti-item-text-stats'>";
     for (let stat in statNames) {
         if (baseItem.hasOwnProperty(stat)) {
             statsHTML += "<li>+" + baseItem[stat] + " " + statNames[stat] + "</li>";
@@ -270,7 +282,7 @@ function combinedStatsHTML(combinedItem) {
         return "";
 
     // start stat styling
-    let statsHTML = "<ul class='stats'>";
+    let statsHTML = "<ul class='tfti-item-text-stats'>";
     let hasCustomStats = false;
 
     // check for custom stats
