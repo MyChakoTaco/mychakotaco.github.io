@@ -10,7 +10,7 @@ $(document).ready(function () {
 
 // #region onHover
 var hoverTimer;
-var hoverDuration = 1000;
+var hoverDuration = 500;
 
 function initializeOnHover() {
     $(".combined-item").mouseenter(function () {
@@ -35,24 +35,40 @@ function animateHover() {
     let unselectedColBaseItem = $(".base-item.first-col[row!="+selectedItemRow+"]");
 
     $.each(unselectedItems.add(unselectedRowBaseItem).add(unselectedColBaseItem), function (key, value) {
-        let currRow = parseInt($(value).attr("row"));
-        let currCol = parseInt($(value).attr("col"));
-        let rowDiff = Math.abs(currRow - selectedItemRow);
-        let colDiff = Math.abs(currCol - selectedItemCol);
+        // let currRow = parseInt($(value).attr("row"));
+        // let currCol = parseInt($(value).attr("col"));
+        // let rowDiff = Math.abs(currRow - selectedItemRow);
+        // let colDiff = Math.abs(currCol - selectedItemCol);
 
-        $(value).animate({
-            opacity: 0.1
-        }, (rowDiff + colDiff) * 100)
+        $(value).addClass("dimmed");
+
+        // $(value).animate({
+        //     opacity: 0.1
+        // }, (rowDiff + colDiff) * 100)
     });
+
+    // let numOfShownColBefore = selectedItem.prevAll().not(".is-hide-col").length;
+    // let numOfShownColAfter = selectedItem.nextAll().not(".is-hide-col").length;
+    // let isFloatRight = numOfShownColAfter >= 3 || numOfShownColBefore < 3;
+
+    // let numOfShownRowBefore = selectedItem.parent().prevAll().children(".base-item").not(".is-hide-row").length;
+    // let numOfShownRowAfter = selectedItem.parent
+    // let isFloatBottom = ;
+
+    // let vertDirection = isFloatBottom ? "bottom" : "top";
+    // let horzDirection = isFloatRight ? "right" : "left";
+    // let directionClass = "float-" + vertDirection + "-" + horzDirection;
+
+    $(".combined-item.is-hover-select .tfti-item-text").addClass("is-float-text");
 }
 
 function unanimateHover() {
     $(".combined-item").add($(".base-item")).stop();
 
     let unselectedItem = $(".combined-item").add($(".base-item"));
-    unselectedItem.animate({
-        opacity: 1
-    });
+    unselectedItem.removeClass("dimmed");
+
+    $(".combined-item.is-hover-select .tfti-item-text").removeClass("is-float-text");
 }
 // #endregion
 
