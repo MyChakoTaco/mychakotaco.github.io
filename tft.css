@@ -147,6 +147,12 @@ body {
     border-radius: 5px;
     padding: 7px 10px;
     font-size: 16px;
+    margin-left: 10px;
+}
+
+.filter-item:first-child {
+    margin-left: 0px;
+    margin-right: 30px;
 }
 
 .filter-item-input {
@@ -155,6 +161,11 @@ body {
     margin: 0px;
     margin-right: 5px;
     top: 2px;
+}
+
+.filter-item-input:checked + label::before {
+    transition: all 0.3s ease;
+    box-shadow: 0px 0px 10px 10px yellow;
 }
 
 /* Unique States */
@@ -181,6 +192,10 @@ body {
 
 .tfti-table.icons-only .all-item .tfti-item {
     display: block;
+}
+
+.tfti-table.icons-only .all-item.is-hover-select {
+    opacity: 1;
 }
 
 .tfti-table.icons-only .all-item.is-hover-select .tfti-item-text {
@@ -236,7 +251,17 @@ body {
     height: auto;
 }
 
-
+/* Unique States (Filter) */
+.combined-item.canheal-dimmed,
+.combined-item.canapplygreviouswounds-dimmed,
+.combined-item.cansplash-dimmed,
+.combined-item.canstun-dimmed,
+.combined-item.cannegatecc-dimmed,
+.combined-item.canapplystatuseffect-dimmed,
+.combined-item.canslow-dimmed,
+.combined-item.cannegateskill-dimmed {
+    opacity: .1;
+}
 
 @media all and (max-width: 1600px) {
     .tfti-table {

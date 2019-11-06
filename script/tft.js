@@ -31,8 +31,8 @@ function animateHover() {
     let selectedItemCol = parseInt(selectedItem.attr("col"));
 
     let unselectedItems = $(".combined-item").not(".is-hover-select");
-    let unselectedRowBaseItem = $(".base-item.first-row[col!="+selectedItemCol+"]");
-    let unselectedColBaseItem = $(".base-item.first-col[row!="+selectedItemRow+"]");
+    let unselectedRowBaseItem = $(".base-item.first-row[col!=" + selectedItemCol + "]");
+    let unselectedColBaseItem = $(".base-item.first-col[row!=" + selectedItemRow + "]");
 
     $.each(unselectedItems.add(unselectedRowBaseItem).add(unselectedColBaseItem), function (key, value) {
         // let currRow = parseInt($(value).attr("row"));
@@ -101,12 +101,70 @@ function hideRow(rowNum) {
 function initializeToggles() {
     // icon only
     $("#cbIconOnly").change(function () {
-        if ($("#cbIconOnly").is(":checked")) {
+        if ($("#cbIconOnly").is(":checked"))
             $(".tfti-table").addClass("icons-only");
-        }
-        else {
+        else
             $(".tfti-table").removeClass("icons-only");
-        }
+        tftResize();
+    })
+
+    $("#cbCanHeal").change(function () {
+        if ($("#cbCanHeal").is(":checked"))
+            $(".combined-item").not(".canheal").addClass("canheal-dimmed");
+        else
+            $(".combined-item").not(".canheal").removeClass("canheal-dimmed");
+    })
+
+    $("#cbApplyGreviousWounds").change(function () {
+        if ($("#cbApplyGreviousWounds").is(":checked"))
+        $(".combined-item").not(".canapplygreviouswounds").addClass("canapplygreviouswounds-dimmed");
+        else
+        $(".combined-item").not(".canapplygreviouswounds").removeClass("canapplygreviouswounds-dimmed");
+    })
+
+    $("#cbCanSplash").change(function () {
+        if ($("#cbCanSplash").is(":checked"))
+        $(".combined-item").not(".cansplash").addClass("cansplash-dimmed");
+        else
+        $(".combined-item").not(".cansplash").removeClass("cansplash-dimmed");
+    })
+
+    $("#cbCanStun").change(function () {
+        if ($("#cbCanStun").is(":checked"))
+        $(".combined-item").not(".canstun").addClass("canstun-dimmed");
+        else
+        $(".combined-item").not(".canstun").removeClass("canstun-dimmed");
+    })
+
+    $("#cbCanNegateCC").change(function () {
+        if ($("#cbCanNegateCC").is(":checked"))
+        $(".combined-item").not(".cannegatecc").addClass("cannegatecc-dimmed");
+        else
+        $(".combined-item").not(".cannegatecc").removeClass("cannegatecc-dimmed");
+        tftResize();
+    })
+
+    $("#cbCanApplyStatusEffect").change(function () {
+        if ($("#cbCanApplyStatusEffect").is(":checked"))
+        $(".combined-item").not(".canapplystatuseffect").addClass("canapplystatuseffect-dimmed");
+        else
+        $(".combined-item").not(".canapplystatuseffect").removeClass("canapplystatuseffect-dimmed");
+        tftResize();
+    })
+
+    $("#cbCanSlow").change(function () {
+        if ($("#cbCanSlow").is(":checked"))
+        $(".combined-item").not(".canslow").addClass("canslow-dimmed");
+        else
+        $(".combined-item").not(".canslow").removeClass("canslow-dimmed");
+        tftResize();
+    })
+
+    $("#cbCanNegateSkill").change(function () {
+        if ($("#cbCanNegateSkill").is(":checked"))
+        $(".combined-item").not(".cannegateskill").addClass("cannegateskill-dimmed");
+        else
+        $(".combined-item").not(".cannegateskill").removeClass("cannegateskill-dimmed");
         tftResize();
     })
 }
@@ -211,8 +269,8 @@ function initializeTFTTable() {
             let baseItemInnerHTML = "<span class='tfti-item'>" +
                 "<span class='tfti-item-image'><img class='tfti-item-image-img' src='images/" + image + "' alt='" + name + "'></span>" +
                 "<span class='tfti-item-text'>" +
-                    "<span class='tfti-item-text-name'>" + name + "</span>" +
-                    baseStatsHTML(value) +
+                "<span class='tfti-item-text-name'>" + name + "</span>" +
+                baseStatsHTML(value) +
                 "</span></span>";
 
             let rows = $(".tfti-table")[0].rows;
@@ -244,10 +302,10 @@ function initializeTFTTable() {
             let combinedItemInnerHTML = "<span class='tfti-item'>" +
                 "<span class='tfti-item-image'><img class='tfti-item-image-img' src='images/" + image + "' alt='" + name + "'></span>" +
                 "<span class='tfti-item-text'>" +
-                    "<span class='tfti-item-text-name'>" + name + "</span>" +
-                    "<span class='tfti-item-text-short-description'>" + shortdescription + "</span>" +
-                    "<span class='tfti-item-text-description'>" + description + "</span>" +
-                    combinedStatsHTML(value) +
+                "<span class='tfti-item-text-name'>" + name + "</span>" +
+                "<span class='tfti-item-text-short-description'>" + shortdescription + "</span>" +
+                "<span class='tfti-item-text-description'>" + description + "</span>" +
+                combinedStatsHTML(value) +
                 "</span></span>";
 
             let rows = $(".tfti-table")[0].rows;
@@ -262,18 +320,17 @@ function initializeTFTTable() {
 
             let cell1 = rows[baseItemID1 + 1].cells[baseItemID2 + 1];
             cell1.innerHTML = combinedItemInnerHTML;
-            cell1.className = "combined-item all-item";
+            cell1.className = "combined-item all-item " + combinedItemSpecialProperties(value);
             cell1.setAttribute("row", baseItemID1 + 1);
             cell1.setAttribute("col", baseItemID2 + 1);
 
             let cell2 = rows[baseItemID2 + 1].cells[baseItemID1 + 1]
             cell2.innerHTML = combinedItemInnerHTML;
-            cell2.className = "combined-item all-item";
+            cell2.className = "combined-item all-item " + combinedItemSpecialProperties(value);
             cell2.setAttribute("row", baseItemID2 + 1);
             cell2.setAttribute("col", baseItemID1 + 1);
         });
     });
-
 }
 
 function baseStatsHTML(baseItem) {
@@ -289,6 +346,17 @@ function baseStatsHTML(baseItem) {
     statsHTML += "</ul>";
 
     return statsHTML;
+}
+
+var itemSpecialProperties = ["canheal", "canapplygreviouswounds", "cansplash", "canstun", "cannegatecc", "canapplystatuseffect", "canslow", "cannegateskill"];
+function combinedItemSpecialProperties(combinedItem) {
+    let specialPropClasses = "";
+    for (let i = 0; i < itemSpecialProperties.length; i++) {
+        if (combinedItem[itemSpecialProperties[i]])
+            specialPropClasses += itemSpecialProperties[i] + " ";
+    }
+    
+    return specialPropClasses;
 }
 
 function combinedStatsHTML(combinedItem) {
