@@ -18,22 +18,28 @@ $(document).ready(function () {
         initializeOnHover();
         initializeFilterChange();
         // initializeOnClick();
+        updateTextFloat();
     }, 1000);
 });
 
 // #region onHover
 var hoverTimer;
-var hoverDuration = 500;
+var hoverDuration = 700;
 
 function initializeOnHover() {
+    $(".combined-item").click(function() {
+        $(this).addClass("is-hover-select");
+        animateHover();
+    })
+
     $(".combined-item").mouseenter(function () {
         $(this).addClass("is-hover-select");
         hoverTimer = setTimeout(function () {
             animateHover();
         }, hoverDuration);
     }).mouseleave(function () {
-        unanimateHover();
         $(this).removeClass("is-hover-select");
+        unanimateHover();
         clearTimeout(hoverTimer);
     });
 }
@@ -43,34 +49,19 @@ function animateHover() {
     let selectedItemRow = parseInt(selectedItem.attr("row"));
     let selectedItemCol = parseInt(selectedItem.attr("col"));
 
-    let unselectedItems = $(".combined-item").not(".is-hover-select");
-    let unselectedRowBaseItem = $(".base-item.first-row[col!=" + selectedItemCol + "]");
-    let unselectedColBaseItem = $(".base-item.first-col[row!=" + selectedItemRow + "]");
+    let unselectedItems = $(".combined-item").not(".is-hover-select").add(".base-item.first-row[col!=" + selectedItemCol + "]").add(".base-item.first-col[row!=" + selectedItemRow + "]");
 
-    $.each(unselectedItems.add(unselectedRowBaseItem).add(unselectedColBaseItem), function (key, value) {
-        $(value).addClass("dimmed");
+    $.each(unselectedItems, function (key, value) {
+        $(value).addClass("hover-dimmed");
     });
-
-    // let numOfShownColBefore = selectedItem.prevAll().not(".is-hide-col").length;
-    // let numOfShownColAfter = selectedItem.nextAll().not(".is-hide-col").length;
-    // let isFloatRight = numOfShownColAfter >= 3 || numOfShownColBefore < 3;
-
-    // let numOfShownRowBefore = selectedItem.parent().prevAll().children(".base-item").not(".is-hide-row").length;
-    // let numOfShownRowAfter = selectedItem.parent
-    // let isFloatBottom = ;
-
-    // let vertDirection = isFloatBottom ? "bottom" : "top";
-    // let horzDirection = isFloatRight ? "right" : "left";
-    // let directionClass = "float-" + vertDirection + "-" + horzDirection;
 
     $(".combined-item.is-hover-select .tfti-item-text").addClass("is-float-text");
 }
 
 function unanimateHover() {
-    $(".combined-item").add($(".base-item")).stop();
-
+    $(".item").stop();
     let unselectedItem = $(".combined-item").add($(".base-item"));
-    unselectedItem.removeClass("dimmed");
+    unselectedItem.removeClass("hover-dimmed");
 
     $(".combined-item.is-hover-select .tfti-item-text").removeClass("is-float-text");
 }
@@ -93,12 +84,31 @@ function initializeOnClick() {
 
 function hideColumn(colNum) {
     $(".all-item[col='" + colNum + "']").addClass("is-hide-col");
+    updateTextFloat();
 }
 
 function hideRow(rowNum) {
     $(".all-item[row='" + rowNum + "']").addClass("is-hide-row");
+    updateTextFloat();
 }
 
+function updateTextFloat() {
+    $.each($(".combined-item"), function(key, value) {
+        selectedItem = $(value);
+
+        let numColBefore = selectedItem.prevAll().not(".is-hide-col").length;
+        let numColAfter = selectedItem.nextAll().not(".is-hide-col").length;
+        let isFloatLeft = numColBefore > 4 && numColAfter < 4;
+
+        let numRowBefore = selectedItem.parent().prevAll().not(".is-hide-row").length;
+        let numRowAfter = selectedItem.parent().nextAll().not(".is-hide-row").length;
+        let isFloatUp = numRowBefore > 4 && numRowAfter < 4;
+        
+        let textElement = selectedItem.children(".tfti-item").children(".tfti-item-text");
+        textElement.removeClass("mod-up mod-left");
+        textElement.addClass((isFloatLeft ? "mod-left " : "") + (isFloatUp ? "mod-up" : ""));
+    });
+}
 // #endregion
 
 // #region filter
@@ -372,9 +382,16 @@ function listStats(baseItem1, baseItem2) {
 function initializeToolbar() {
     let filter = $(".toolbar-filters").empty();
     let filterTypes = keyTexts["filter"];
+    let counter = 0;
 
     $.each(filterTypes, function (key, value) {
-        filter.append("<span class='toolbar-filters-item'>" +
+        if (counter%3==0) {
+            filter.append("<span class='toolbar-filters-item-row'></span>");
+        }
+        counter++;
+
+        let latestRow = filter.children(".toolbar-filters-item-row").last();
+        latestRow.append("<span class='toolbar-filters-item'>" +
         "<label class='toolbar-filters-item-label'>" + value["text"] + "</label>" +
         "<select class='toolbar-filters-item-dropdown' id='" + key + "'/>" +
         "</span>");
