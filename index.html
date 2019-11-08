@@ -2,43 +2,40 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <title>Teamfight Tactics</title>
+        <meta charset="utf-8">
+        <title>Teamfight Tactics</title>
 
-    <link rel="stylesheet" type="text/css" href="tft.css">
+        <link rel="stylesheet" type="text/css" href="tft.css">
 
-    <script src="script/jquery-3.4.1.min.js"></script>
-    <script src="script/jquery-ui.min.js"></script>
-    <script src="script/tft.js"></script>
+        <script src="script/jquery-3.4.1.min.js"></script>
+        <script src="script/jquery-ui.min.js"></script>
+        <script src="script/tft.js"></script>
 </head>
 
 <body>
-    <div class="filter">
-        <label for="cbIconOnly" class="filter-item"><input id="cbIconOnly" type="checkbox" checked="true"
-                class="filter-item-input">Icons Only</input></label>
+        <div class="cover">
+                <div class="cover-push"></div>
+                <img class="cover-logo" src="images/Teamfight_Tactics.png" />
+                <div class="cover-text">A Fan-Made Item Guide</div>
+                <div class="cover-details">Charles Hsueh, November 7, 2019</div>
+        </div>
 
-        <label for="cbCanHeal" class="filter-item"><input id="cbCanHeal" type="checkbox"
-                class="filter-item-input">Healing</input></label>
-        <label for="cbApplyGreviousWounds" class="filter-item"><input id="cbApplyGreviousWounds" type="checkbox"
-                class="filter-item-input">Reduce Healing</input></label>
-        <label for="cbCanSplash" class="filter-item"><input id="cbCanSplash" type="checkbox"
-                class="filter-item-input">Splash Damage</input></label>
-        <label for="cbCanStun" class="filter-item"><input id="cbCanStun" type="checkbox"
-                class="filter-item-input">Stunning</input></label>
-        <label for="cbCanNegateCC" class="filter-item"><input id="cbCanNegateCC" type="checkbox"
-                class="filter-item-input">Negate Stuns</input></label>
-        <label for="cbCanApplyStatusEffect" class="filter-item"><input id="cbCanApplyStatusEffect" type="checkbox"
-                class="filter-item-input">Status Ailments</input></label>
-        <label for="cbCanSlow" class="filter-item"><input id="cbCanSlow" type="checkbox"
-                class="filter-item-input">Slows</input></label>
-        <label for="cbCanNegateSkill" class="filter-item"><input id="cbCanNegateSkill" type="checkbox"
-                class="filter-item-input">Skill Prevention</input></label>
-    </div>
+        <div class="toolbar">
+                <!-- <span class="toolbar-toggle">
+                        <label for="cbIconOnly" class="toolbar-toggle-label">
+                                <input id="cbIconOnly" type="checkbox" checked="true" class="toolbar-toggle-input">Icons
+                                Only</input>
+                        </label>
+                </span> -->
 
-    <div class="tfti">
-        <table class="tfti-table">
-        </table>
-    </div>
+                <span class="toolbar-filters">      
+                </span>
+        </div>
+
+        <div class="tfti">
+                <table class="tfti-table">
+                </table>
+        </div>
 </body>
 
 </html>

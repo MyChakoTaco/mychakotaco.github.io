@@ -18,6 +18,50 @@ body {
     padding: 0;
 }
 
+.cover {
+    opacity:1;
+    background-color:#0c1213;
+    position:fixed;
+    top:0px;
+    bottom: 0px;
+    left:0px;
+    right: 0px;
+    z-index:1000;
+    transition: .5s;
+    text-align: center;
+}
+
+.cover-push {
+    height: 30%;
+}
+
+.cover-logo {
+    display: inline-block;
+    width: 50%;
+}
+
+.cover-text {
+    bottom: 20%;
+    color: #527674;
+    padding-top: 10px;
+    font-size: 24px;
+}
+
+.cover-details {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    color: #527674;
+}
+
+.cover.hide-cover {
+    opacity: 0;
+}
+
+.cover.disable-cover {
+    display: none;
+}
+
 /* Base Table Styling */
 .tfti {
     position: relative;
@@ -32,7 +76,7 @@ body {
     margin: 0px 20px;
 }
 
-.all-item {
+.item {
     padding: 0;
     margin: 0;
     width: 1%;
@@ -49,20 +93,20 @@ body {
 }
 
 /* All Item Styling */
-.all-item .tfti-item {
+.item .tfti-item {
     display: table;
     width: 100%;
 }
 
-.all-item .tfti-item-image {
+.item .tfti-item-image {
     display: table-cell;
 }
 
-.all-item .tfti-item-image-img {
+.item .tfti-item-image-img {
     display: block;
 }
 
-.all-item .tfti-item-text {
+.item .tfti-item-text {
     display: table-cell;
     width: 100%;
     vertical-align: middle;
@@ -71,23 +115,23 @@ body {
     margin: 0px;
 }
 
-.all-item .tfti-item-text-name {
+.item .tfti-item-text-name {
     display: none;
     margin:0;
     padding:0;
 }
 
-.all-item .tfti-item-text-short-description {
+.item .tfti-item-text-short-description {
     margin:0;
     padding:0;
 }
 
-.all-item .tfti-item-text-description {
+.item .tfti-item-text-description {
     margin:0;
     padding:0;
 }
 
-.all-item .tfti-item-text-stats {
+.item .tfti-item-text-stats {
     list-style:none;
     margin:0;
     padding:0;
@@ -129,16 +173,20 @@ body {
     display: none;
 }
 
-/* Filter Bar */
-.filter {
+/* Toolbar Bar */
+.toolbar {
+    display: block;
     text-align: left;
-    padding: 10px 30px;
+    width: 100%;
 }
 
-.filter-item {
-    display: inline-block;
+/* .toolbar-toggle {
+    display: table-cell;
+    width: .1%;
+}
+
+.toolbar-toggle-label {
     background-color: #17535B;
-    opacity: 1;
     color: #C0F1D8;
     border-left: 2px solid #F5DD95;
     border-top: 2px solid #F5DD95;
@@ -150,22 +198,46 @@ body {
     margin-left: 10px;
 }
 
-.filter-item:first-child {
-    margin-left: 0px;
-    margin-right: 30px;
-}
-
-.filter-item-input {
+.toolbar-toggle-checkbox {
     position: relative;
     padding: 0px;
     margin: 0px;
     margin-right: 5px;
     top: 2px;
+} */
+
+.toolbar-filters {
+    display: table;
+    background-color: #17535B;
+    border-bottom: 2px solid #AE914B;
+    font-size: 16px;
+    width: 100%;
 }
 
-.filter-item-input:checked + label::before {
-    transition: all 0.3s ease;
-    box-shadow: 0px 0px 10px 10px yellow;
+.toolbar-filters-item {
+    display: table-cell;
+    padding: 10px 15px;
+    width: 1%;
+}
+
+.toolbar-filters-item-label {
+    display: block;
+    color: #F1DC96;
+}
+
+.toolbar-filters-item-dropdown {
+    display: block;
+    border-left: 1px solid #F5DD95;
+    border-top: 1px solid #F5DD95;
+    border-right: 1px solid #AE914B;
+    border-bottom: 1px solid #AE914B;
+    border-radius: 2px;
+    padding: 2px;
+    font-size: 16px;
+    color: #C0F1D8;
+    background-color: #527674;
+    width: 100%;
+    margin-top: 5px;
 }
 
 /* Unique States */
@@ -177,28 +249,28 @@ body {
     display:none;
 }
 
-.all-item {
+.item {
     opacity: 1;
     transition: all 0.3s ease;
 }
 
-.all-item.dimmed {
+.item.dimmed {
     opacity: .1;
 }
 
-.tfti-table.icons-only .all-item .tfti-item-text {
+.tfti-table.icons-only .item .tfti-item-text {
     display: none;
 }
 
-.tfti-table.icons-only .all-item .tfti-item {
+.tfti-table.icons-only .item .tfti-item {
     display: block;
 }
 
-.tfti-table.icons-only .all-item.is-hover-select {
+.tfti-table.icons-only .item.is-hover-select {
     opacity: 1;
 }
 
-.tfti-table.icons-only .all-item.is-hover-select .tfti-item-text {
+.tfti-table.icons-only .item.is-hover-select .tfti-item-text {
     opacity: 0;
     transition: all 0.3s ease;
     display: block;
@@ -213,32 +285,33 @@ body {
     font-weight: normal;
 }
 
-.tfti-table.icons-only .all-item.is-hover-select .tfti-item-text-name {
+.tfti-table.icons-only .item.is-hover-select .tfti-item-text-name {
     display: block;
     font-weight: bold;
     font-size: 16px;
 }
 
-.tfti-table.icons-only .all-item.is-hover-select .tfti-item-text-short-description {
+.tfti-table.icons-only .item.is-hover-select .tfti-item-text-short-description {
     display: none;
 }
 
-.tfti-table.icons-only .all-item.is-hover-select .tfti-item-text-description {
+.tfti-table.icons-only .item.is-hover-select .tfti-item-text-description {
     display: block;
     padding-top: 10px;
     padding-left: 10px;
 }
 
-.tfti-table.icons-only .all-item.is-hover-select .tfti-item-text-stats {
+.tfti-table.icons-only .item.is-hover-select .tfti-item-text-stats {
     display: block;
     padding-top: 10px;
     padding-left: 10px;
     color: #5f5f5f;
 }
 
-.tfti-table.icons-only .all-item.is-hover-select .tfti-item-text.is-float-text {
+.tfti-table.icons-only .item.is-hover-select .tfti-item-text.is-float-text {
     opacity: 1;
     left: 64px;
+    z-index: 10;
 }
 
 .tfti-table.icons-only {
@@ -246,20 +319,13 @@ body {
     table-layout: auto;
 }
 
-.tfti-table.icons-only .all-item {
+.tfti-table.icons-only .item {
     width: auto;
     height: auto;
 }
 
 /* Unique States (Filter) */
-.combined-item.canheal-dimmed,
-.combined-item.canapplygreviouswounds-dimmed,
-.combined-item.cansplash-dimmed,
-.combined-item.canstun-dimmed,
-.combined-item.cannegatecc-dimmed,
-.combined-item.canapplystatuseffect-dimmed,
-.combined-item.canslow-dimmed,
-.combined-item.cannegateskill-dimmed {
+.combined-item.filter-dimmed {
     opacity: .1;
 }
 
@@ -272,7 +338,7 @@ body {
         width: initial;
     }
 
-    .all-item .tfti-item-text {
+    .item .tfti-item-text {
         display: block;
         position: absolute;
         left: 5px;
@@ -286,19 +352,28 @@ body {
 }
 
 @media all and (max-width: 1280px) {
-    .all-item .tfti-item-text {
+    .item .tfti-item-text {
         font-size:10px;
     }
 
-    .all-item .tfti-item-image-img {
+    .item .tfti-item-image-img {
         width: 54px;
     }
 
-    .filter {
-        font-size: 12px;
+    .toolbar-filters-item {
+        padding: 8px 10px;
     }
 
-    .tfti-table.icons-only .all-item.is-hover-select .tfti-item-text.is-float-text {
+    .toolbar-filters-item-label {
+        font-size: 14px;
+    }
+
+    .toolbar-filters-item-dropdown {
+        font-size: 14px;
+        padding: 2px 5px;
+    }
+
+    .tfti-table.icons-only .item.is-hover-select .tfti-item-text.is-float-text {
         left: 54px;
     }
 }

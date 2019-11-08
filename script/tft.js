@@ -1,11 +1,24 @@
 $(document).ready(function () {
+    setTimeout(function () {
+        $(".cover").addClass("hide-cover");
+    }, 1500);
+    setTimeout(function () {
+        $(".cover").addClass("disable-cover");
+    }, 2000);
+
+    loadJSON();
+
+    setTimeout(function () {
     initializeTFTTable();
+    initializeToolbar();
+    }, 500);
+
     setTimeout(function () {
         initializeResizing();
         initializeOnHover();
-        initializeToggles();
-        initializeOnClick();
-    }, 500)
+        initializeFilterChange();
+        // initializeOnClick();
+    }, 1000);
 });
 
 // #region onHover
@@ -35,16 +48,7 @@ function animateHover() {
     let unselectedColBaseItem = $(".base-item.first-col[row!=" + selectedItemRow + "]");
 
     $.each(unselectedItems.add(unselectedRowBaseItem).add(unselectedColBaseItem), function (key, value) {
-        // let currRow = parseInt($(value).attr("row"));
-        // let currCol = parseInt($(value).attr("col"));
-        // let rowDiff = Math.abs(currRow - selectedItemRow);
-        // let colDiff = Math.abs(currCol - selectedItemCol);
-
         $(value).addClass("dimmed");
-
-        // $(value).animate({
-        //     opacity: 0.1
-        // }, (rowDiff + colDiff) * 100)
     });
 
     // let numOfShownColBefore = selectedItem.prevAll().not(".is-hide-col").length;
@@ -97,76 +101,32 @@ function hideRow(rowNum) {
 
 // #endregion
 
-// #region toggles
-function initializeToggles() {
+// #region filter
+function initializeFilterChange() {
     // icon only
-    $("#cbIconOnly").change(function () {
-        if ($("#cbIconOnly").is(":checked"))
-            $(".tfti-table").addClass("icons-only");
-        else
-            $(".tfti-table").removeClass("icons-only");
-        tftResize();
-    })
+    // $("#cbIconOnly").change(function () {
+    //     if ($("#cbIconOnly").is(":checked"))
+    //         $(".tfti-table").addClass("icons-only");
+    //     else
+    //         $(".tfti-table").removeClass("icons-only");
+    //     tftResize();
+    // });
 
-    $("#cbCanHeal").change(function () {
-        if ($("#cbCanHeal").is(":checked"))
-            $(".combined-item").not(".canheal").addClass("canheal-dimmed");
-        else
-            $(".combined-item").not(".canheal").removeClass("canheal-dimmed");
-    })
+    $(".toolbar-filters-item-dropdown").change(function () {
+        filterItems();
+    });
+}
 
-    $("#cbApplyGreviousWounds").change(function () {
-        if ($("#cbApplyGreviousWounds").is(":checked"))
-        $(".combined-item").not(".canapplygreviouswounds").addClass("canapplygreviouswounds-dimmed");
-        else
-        $(".combined-item").not(".canapplygreviouswounds").removeClass("canapplygreviouswounds-dimmed");
-    })
+function filterItems() {
+    let properties = [];
+    $(".toolbar-filters-item-dropdown").each(function() {
+        if (this.value.length > 0) {
+            properties.push("." + this.value);
+        }
+    });
 
-    $("#cbCanSplash").change(function () {
-        if ($("#cbCanSplash").is(":checked"))
-        $(".combined-item").not(".cansplash").addClass("cansplash-dimmed");
-        else
-        $(".combined-item").not(".cansplash").removeClass("cansplash-dimmed");
-    })
-
-    $("#cbCanStun").change(function () {
-        if ($("#cbCanStun").is(":checked"))
-        $(".combined-item").not(".canstun").addClass("canstun-dimmed");
-        else
-        $(".combined-item").not(".canstun").removeClass("canstun-dimmed");
-    })
-
-    $("#cbCanNegateCC").change(function () {
-        if ($("#cbCanNegateCC").is(":checked"))
-        $(".combined-item").not(".cannegatecc").addClass("cannegatecc-dimmed");
-        else
-        $(".combined-item").not(".cannegatecc").removeClass("cannegatecc-dimmed");
-        tftResize();
-    })
-
-    $("#cbCanApplyStatusEffect").change(function () {
-        if ($("#cbCanApplyStatusEffect").is(":checked"))
-        $(".combined-item").not(".canapplystatuseffect").addClass("canapplystatuseffect-dimmed");
-        else
-        $(".combined-item").not(".canapplystatuseffect").removeClass("canapplystatuseffect-dimmed");
-        tftResize();
-    })
-
-    $("#cbCanSlow").change(function () {
-        if ($("#cbCanSlow").is(":checked"))
-        $(".combined-item").not(".canslow").addClass("canslow-dimmed");
-        else
-        $(".combined-item").not(".canslow").removeClass("canslow-dimmed");
-        tftResize();
-    })
-
-    $("#cbCanNegateSkill").change(function () {
-        if ($("#cbCanNegateSkill").is(":checked"))
-        $(".combined-item").not(".cannegateskill").addClass("cannegateskill-dimmed");
-        else
-        $(".combined-item").not(".cannegateskill").removeClass("cannegateskill-dimmed");
-        tftResize();
-    })
+    $(".combined-item").addClass("filter-dimmed");
+    $(".combined-item" + properties.join("")).removeClass("filter-dimmed");
 }
 // #endregion
 
@@ -182,14 +142,14 @@ function tftResize() {
 }
 
 function resizeTable() {
-    let filterContainerEle = $(".filter");
+    let toolbarContainerEle = $(".toolbar");
     let numOfVisibleRows = $(".all-item.first-col").not(".is-hide-row").length + 1;
 
     let newHeightValue = window.innerHeight;
 
     if (isFullScreen()) {
         newHeightValue = Math.min(
-            (window.innerHeight - filterContainerEle.innerHeight() - 5) / numOfVisibleRows,
+            (window.innerHeight - toolbarContainerEle.innerHeight() - 5) / numOfVisibleRows,
             120);
     }
     else {
@@ -203,7 +163,7 @@ function resizeTable() {
 
 function repositionTable() {
     let containerEle = $(".tfti");
-    let filterContainerEle = $(".filter");
+    let toolbarContainerEle = $(".toolbar");
 
     if (isFullScreen()) {
         containerEle.css({
@@ -213,7 +173,7 @@ function repositionTable() {
     }
     else {
         containerEle.css({
-            top: Math.max((window.innerHeight - filterContainerEle.innerHeight() - containerEle.height()) / 2, 0),
+            top: Math.max((window.innerHeight - toolbarContainerEle.innerHeight() - containerEle.height()) / 2, 0),
             left: (window.innerWidth - containerEle.width()) / 2
         });
     }
@@ -228,198 +188,206 @@ function isFullScreen() {
 }
 // #endregion
 
-// #region Table Construction
-var baseItems, combinedItems;
-var statNames = {
-    "attackdamage": "Attack Damage",
-    "magicdamage": "Ability Damage",
-    "critchance": "Critical Chance",
-    "dodgechance": "Dodge Chance",
-    "attackspeed": "Attack Speed",
-    "health": "Health",
-    "armor": "Armor",
-    "magicresist": "Magic Resist",
-    "startingmana": "Starting Mana"
-};
-
-function initializeTFTTable() {
+var baseItems;
+var combinedItems;
+var keyTexts;
+// #region Load JSON
+function loadJSON() {
     $.getJSON("tft.json", function (data) {
-        baseItems = data["tftitems"]["baseitems"];
-        combinedItems = data["tftitems"]["combineditems"];
-        let numBaseItems = Object.keys(baseItems).length;
-        let table = $(".tfti-table").empty()
+        baseItems = data["tftitems"]["items"]["baseitems"];
+        combinedItems = data["tftitems"]["items"]["combineditems"];
+        keyTexts = data["tftitems"]["texts"];
+    });
+}
+// #endregion
 
-        // create new empty table
-        table.empty();
-        for (let i = 0; i < numBaseItems + 1; i++) {
-            table.append("<tr></tr>");
-        }
-        for (let i = 0; i < numBaseItems + 1; i++) {
-            table.children("tr").append("<td></td>");
-        }
+// #region Table Construction
+function initializeTFTTable() {
+    let numBaseItems = Object.keys(baseItems).length;
+    let table = $(".tfti-table").empty()
 
-        table.addClass("icons-only");
+    // create new empty table
+    table.empty();
+    for (let i = 0; i < numBaseItems + 1; i++) {
+        table.append("<tr row='" + i + "'></tr>");
+    }
+    for (let i = 0; i < numBaseItems + 1; i++) {
+        table.children("tr").append("<td></td>");
+    }
 
-        // prepare base items
-        $.each(baseItems, function (key, value) {
-            let baseItemID = value["baseitemid"];
-            let name = value["name"];
-            let image = value["image"];
+    table.addClass("icons-only");
 
-            let baseItemInnerHTML = "<span class='tfti-item'>" +
-                "<span class='tfti-item-image'><img class='tfti-item-image-img' src='images/" + image + "' alt='" + name + "'></span>" +
-                "<span class='tfti-item-text'>" +
-                "<span class='tfti-item-text-name'>" + name + "</span>" +
-                baseStatsHTML(value) +
-                "</span></span>";
+    // prepare base items
+    $.each(baseItems, function (key, value) {
+        let position = value["position"] + 1;
+        let name = value["name"];
+        let image = value["image"];
+        let stats = value["stats"];
 
-            let rows = $(".tfti-table")[0].rows;
+        let baseItemInnerHTML = "" +
+            "<span class='tfti-item'>" +
+            "<span class='tfti-item-image'>" +
+            "<img class='tfti-item-image-img' src='images/" + image + "' alt='" + name + "'>" +
+            "</span>" +
+            "<span class='tfti-item-text'>" +
+            "<span class='tfti-item-text-name'>" + name + "</span>" +
+            (Object.keys(stats).length > 0 ? "<span class='tfti-item-text-stats'>" + listStats(value, null) + "</span>" : "") +
+            "</span>" +
+            "</span>";
 
-            let cell1 = rows[0].cells[baseItemID + 1];
-            cell1.innerHTML = baseItemInnerHTML;
-            cell1.className = "base-item all-item first-row";
-            cell1.setAttribute("row", 0);
-            cell1.setAttribute("col", baseItemID + 1);
+        let rows = $(".tfti-table")[0].rows;
 
-            // let cell2 = rows[numBaseItems - baseItemID].cells[0];
-            let cell2 = rows[baseItemID + 1].cells[0];
-            cell2.innerHTML = baseItemInnerHTML;
-            cell2.className = "base-item all-item first-col";
-            cell2.setAttribute("row", baseItemID + 1);
-            cell2.setAttribute("col", 0);
-        });
+        let cell1 = rows[0].cells[position];
+        cell1.innerHTML = baseItemInnerHTML;
+        cell1.className = "base-item item first-row";
+        cell1.setAttribute("row", 0);
+        cell1.setAttribute("col", position);
 
-        // prepare combined items
-        $.each(combinedItems, function (key, value) {
-            let baseItemID1 = value["baseitemid1"];
-            let baseItemID2 = value["baseitemid2"];
-            let name = value["name"];
-            let description = value["description"];
-            let shortdescription = value["shortdescription"];
-            let image = value["image"];
+        // used when doing unique flipped
+        // let cell2 = rows[numBaseItems - baseItemID].cells[0];
+        let cell2 = rows[position].cells[0];
+        cell2.innerHTML = baseItemInnerHTML;
+        cell2.className = "base-item item first-col";
+        cell2.setAttribute("row", position);
+        cell2.setAttribute("col", 0);
+    });
 
+    // prepare combined items
+    $.each(combinedItems, function (key, value) {
+        let ingredients = value["baseitems"];
+        let baseItem1 = baseItems[ingredients[0]];
+        let baseItem2 = baseItems[ingredients[1]];
+        let name = value["name"];
+        let description = value["description"];
+        let shortdescription = value["shortdescription"];
+        let image = value["image"];
+        let filters = value["filter"]
 
-            let combinedItemInnerHTML = "<span class='tfti-item'>" +
-                "<span class='tfti-item-image'><img class='tfti-item-image-img' src='images/" + image + "' alt='" + name + "'></span>" +
-                "<span class='tfti-item-text'>" +
-                "<span class='tfti-item-text-name'>" + name + "</span>" +
-                "<span class='tfti-item-text-short-description'>" + shortdescription + "</span>" +
-                "<span class='tfti-item-text-description'>" + description + "</span>" +
-                combinedStatsHTML(value) +
-                "</span></span>";
+        let combinedItemInnerHTML = "" +
+            "<span class='tfti-item'>" +
+            "<span class='tfti-item-image'>" +
+            "<img class='tfti-item-image-img' src='images/" + image + "' alt='" + name + "'>" +
+            "</span>" +
+            "<span class='tfti-item-text'>" +
+            "<span class='tfti-item-text-name'>" + name + "</span>" +
+            "<span class='tfti-item-text-short-description'>" + shortdescription + "</span>" +
+            "<span class='tfti-item-text-description'>" + description + "</span>" +
+            (Object.keys(baseItem1["stats"]).length+Object.keys(baseItem2["stats"]).length > 0 ? "<span class='tfti-item-text-stats'>" + listStats(baseItem1, baseItem2) + "</span>" : "") +
+            "</span></span>";
 
-            let rows = $(".tfti-table")[0].rows;
+        let rows = $(".tfti-table")[0].rows;
 
-            // let cell1 = rows[numBaseItems - baseItemID1].cells[baseItemID2 + 1];
-            // cell1.innerHTML = combinedItemInnerHTML;
-            // cell1.className = "combined-item duplicate-item";
+        // used when flipped
+        // let cell1 = rows[numBaseItems - baseItemID1].cells[baseItemID2 + 1];
+        // cell1.innerHTML = combinedItemInnerHTML;
+        // cell1.className = "combined-item duplicate-item";
 
-            // let cell2 = rows[numBaseItems - baseItemID2].cells[baseItemID1 + 1]
-            // cell2.innerHTML = combinedItemInnerHTML;
-            // cell2.className = "combined-item";
+        // let cell2 = rows[numBaseItems - baseItemID2].cells[baseItemID1 + 1]
+        // cell2.innerHTML = combinedItemInnerHTML;
+        // cell2.className = "combined-item";
 
-            let cell1 = rows[baseItemID1 + 1].cells[baseItemID2 + 1];
-            cell1.innerHTML = combinedItemInnerHTML;
-            cell1.className = "combined-item all-item " + combinedItemSpecialProperties(value);
-            cell1.setAttribute("row", baseItemID1 + 1);
-            cell1.setAttribute("col", baseItemID2 + 1);
+        let position1 = baseItem1["position"] + 1;
+        let position2 = baseItem2["position"] + 1;
 
-            let cell2 = rows[baseItemID2 + 1].cells[baseItemID1 + 1]
-            cell2.innerHTML = combinedItemInnerHTML;
-            cell2.className = "combined-item all-item " + combinedItemSpecialProperties(value);
-            cell2.setAttribute("row", baseItemID2 + 1);
-            cell2.setAttribute("col", baseItemID1 + 1);
-        });
+        let cell1 = rows[position1].cells[position2];
+        cell1.innerHTML = combinedItemInnerHTML;
+        cell1.className = "combined-item item " + filters.join(" ");
+        cell1.setAttribute("row", position1);
+        cell1.setAttribute("col", position2);
+
+        let cell2 = rows[position2].cells[position1]
+        cell2.innerHTML = combinedItemInnerHTML;
+        cell2.className = "combined-item item " + filters.join(" ");
+        cell2.setAttribute("row", position2);
+        cell2.setAttribute("col", position1);
     });
 }
 
-function baseStatsHTML(baseItem) {
-    if (baseItem["baseitemid"] == 8)
-        return "<span class='tfti-item-text-stats'>Golden Spatula</span>";
-
-    let statsHTML = "<ul class='tfti-item-text-stats'>";
-    for (let stat in statNames) {
-        if (baseItem.hasOwnProperty(stat)) {
-            statsHTML += "<li>+" + baseItem[stat] + " " + statNames[stat] + "</li>";
+function listStats(baseItem1, baseItem2) {
+    let html = "";
+    if (baseItem2 == null) {
+        for (let stat in baseItem1["stats"]) {
+            html + "<li>+" + baseItem1[stat] + " " + keyTexts["stats"][stat] + "</li>"
         }
     }
-    statsHTML += "</ul>";
+    else {
+        let type = "both";
+        if (baseItem1["name"] == "Sparring Gloves")
+            type = baseItem2["type"];
+        else if (baseItem2["name"] == "Sparring Gloves")
+            type = baseItem1["type"];
 
-    return statsHTML;
-}
+        let stats = [];
+        for (let stat1 in baseItem1["stats"]) {
+            stats.push(stat1);
+        }
+        for (let stat2 in baseItem2["stats"]) {
+            if (stats.indexOf(stat2) == -1)
+                stats.push(stat2);
+        }
 
-var itemSpecialProperties = ["canheal", "canapplygreviouswounds", "cansplash", "canstun", "cannegatecc", "canapplystatuseffect", "canslow", "cannegateskill"];
-function combinedItemSpecialProperties(combinedItem) {
-    let specialPropClasses = "";
-    for (let i = 0; i < itemSpecialProperties.length; i++) {
-        if (combinedItem[itemSpecialProperties[i]])
-            specialPropClasses += itemSpecialProperties[i] + " ";
-    }
+        for (let i = 0; i < stats.length; i++) {
+            let stat = stats[i];
+
+            statVal1 = baseItem1["stats"][stat];
+            statVal2 = baseItem2["stats"][stat];
+            let sum = (typeof statVal1 === 'undefined' ? 0 : statVal1) + (typeof statVal2 === 'undefined' ? 0 : statVal2);
+
+            if (baseItem1["name"] == "Golden Spatula" || baseItem2["name"] == "Golden Spatula") {
+                sum += sum;
+            }
+            else {
+                switch (type) {
+                    case "offensive":
+                        if (stat == "critchance")
+                            sum += sum;
+                        else if (stat == "dodgechance")
+                            continue;
+                        break;
     
-    return specialPropClasses;
-}
+                    case "defensive":
+                        if (stat == "dodgechance")
+                            sum += sum;
+                        else if (stat == "critchance")
+                            continue;
+                        break;
+                }
+            }
 
-function combinedStatsHTML(combinedItem) {
-    let baseItemID1 = combinedItem["baseitemid1"];
-    let baseItemID2 = combinedItem["baseitemid2"];
-    if (baseItemID1 == 8 && baseItemID2 == 8)
-        return "";
-
-    // start stat styling
-    let statsHTML = "<ul class='tfti-item-text-stats'>";
-    let hasCustomStats = false;
-
-    // check for custom stats
-    for (let stat in statNames) {
-        if (combinedItem.hasOwnProperty(stat)) {
-            statsHTML += "<li>+" + combinedItem[stat] + " " + statNames[stat] + "</li>";
-            hasCustomStats = true;
+            let addPercent = false;
+            switch (stat) {
+                case "critchance":
+                case "dodgechance":
+                case "attackspeed":
+                    addPercent = true;
+            }
+            html += "<li>+" + sum + (addPercent ? "%" : "") + " " + keyTexts["stats"][stat] + "</li>"
         }
     }
-
-    // do mathematics to add base item stats
-    if (!hasCustomStats) {
-        let hasSpatula = baseItemID1 == 8 || baseItemID2 == 8;
-
-        let statsArray = {
-            "attackdamage": 0,
-            "magicdamage": 0,
-            "critchance": 0,
-            "dodgechance": 0,
-            "attackspeed": 0,
-            "health": 0,
-            "armor": 0,
-            "magicresist": 0,
-            "startingmana": 0
-        }
-
-        // find base items
-        let baseItem1, baseItem2;
-        for (let baseItem in baseItems) {
-            if (baseItems[baseItem]["baseitemid"] == baseItemID1) {
-                baseItem1 = baseItems[baseItem];
-            }
-            if (baseItems[baseItem]["baseitemid"] == baseItemID2) {
-                baseItem2 = baseItems[baseItem];
-            }
-        }
-
-        // add all stats of base items
-        for (let stat in statsArray) {
-            if (baseItem1.hasOwnProperty(stat)) {
-                statsArray[stat] += hasSpatula ? baseItem1[stat] * 2 : baseItem1[stat];
-            }
-            if (baseItem2.hasOwnProperty(stat)) {
-                statsArray[stat] += hasSpatula ? baseItem2[stat] * 2 : baseItem2[stat];
-            }
-            if (statsArray[stat] > 0) {
-                statsHTML += "<li>+" + statsArray[stat] + " " + statNames[stat] + "</li>"
-            }
-        }
-    }
-    statsHTML += "</ul>";
-
-    return statsHTML;
+    return html;
 }
-
 // #endregion
+
+// #region Filter Construction
+function initializeToolbar() {
+    let filter = $(".toolbar-filters").empty();
+    let filterTypes = keyTexts["filter"];
+
+    $.each(filterTypes, function (key, value) {
+        filter.append("<span class='toolbar-filters-item'>" +
+        "<label class='toolbar-filters-item-label'>" + value["text"] + "</label>" +
+        "<select class='toolbar-filters-item-dropdown' id='" + key + "'/>" +
+        "</span>");
+
+        let target = "#" + key;
+        $(target).append(new Option("",""));
+        
+        let properties = value["properties"];
+        for (let prop in properties) {
+            // $("#"+key).append("<option value='"+prop+"'>"+properties[prop]+"</option>");
+            $("#"+key).append(new Option(properties[prop], prop));
+
+        }
+    })
+}
+// #end region
