@@ -38,14 +38,14 @@ function initializeOnHover() {
             animateHover();
         }, hoverDuration);
     }).mouseleave(function () {
-        $(this).removeClass("is-hover-select");
+        $(this).removeClass("is-hover-select is-hover-active");
         unanimateHover();
         clearTimeout(hoverTimer);
     });
 }
 
 function animateHover() {
-    let selectedItem = $(".combined-item.is-hover-select");
+    let selectedItem = $(".combined-item.is-hover-select").addClass("is-hover-active");
     let selectedItemRow = parseInt(selectedItem.attr("row"));
     let selectedItemCol = parseInt(selectedItem.attr("col"));
 
@@ -54,16 +54,10 @@ function animateHover() {
     $.each(unselectedItems, function (key, value) {
         $(value).addClass("hover-dimmed");
     });
-
-    $(".combined-item.is-hover-select .tfti-item-text").addClass("is-float-text");
 }
 
 function unanimateHover() {
-    $(".item").stop();
-    let unselectedItem = $(".combined-item").add($(".base-item"));
-    unselectedItem.removeClass("hover-dimmed");
-
-    $(".combined-item.is-hover-select .tfti-item-text").removeClass("is-float-text");
+    $(".item").removeClass("hover-dimmed");
 }
 // #endregion
 
@@ -301,13 +295,13 @@ function initializeTFTTable() {
 
         let cell1 = rows[position1].cells[position2];
         cell1.innerHTML = combinedItemInnerHTML;
-        cell1.className = "combined-item item " + filters.join(" ");
+        cell1.className = "combined-item item " + filters.join(" ") + (position2 < position1 ? " duplicate" : "");
         cell1.setAttribute("row", position1);
         cell1.setAttribute("col", position2);
 
         let cell2 = rows[position2].cells[position1]
         cell2.innerHTML = combinedItemInnerHTML;
-        cell2.className = "combined-item item " + filters.join(" ");
+        cell2.className = "combined-item item " + filters.join(" ") + (position1 < position2 ? " duplicate" : "");
         cell2.setAttribute("row", position2);
         cell2.setAttribute("col", position1);
     });
